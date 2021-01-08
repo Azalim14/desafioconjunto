@@ -3,5 +3,23 @@
 {% block title %}Lista Metas{% endblock %}
 
 {% block content %}
-    <h4>lista de metas</h4>
+    <div class="offset-1 col-10 list-div">
+        <h1>Lista de Metas</h1>
+        <div class="col-2 add-div">
+            <i class="fa fa-plus"></i> Adicionar Meta
+        </div>
+        <div class="col-9 search-div">
+            <input class="form-control" type="text" name="search" id="search" placeholder="digite aqui uma meta para buscar...">
+            <i class="fas fa-search"></i>
+        </div>
+        {% for meta in metas %}
+            <ul class="tasks-list">
+                <li class="task-item">
+                    <span><a href="/meta/{{ meta.id }}">{{ meta.title }}</a></span>
+                    <span><i class="fas fa-trash"></i></span>
+                    <span><i class="fas fa-edit"></i></span>
+                </li>
+            </ul>
+        {% endfor %}
+    </div>
 {% endblock %}
