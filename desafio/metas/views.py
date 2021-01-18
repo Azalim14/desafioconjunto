@@ -1,25 +1,39 @@
 from django.shortcuts import render, get_object_or_404, redirect
+from django.contrib.auth.decorators import login_required
 from django.core.paginator import Paginator
 from .models import Meta
 from .forms import *
 from django.http import HttpResponse
 
 # Create your views here.
+
+@login_required
 def listaMeta(request):
-    lista_metas = Meta.objects.all().order_by('-created_at')
 
-    paginator = Paginator(lista_metas, 4)
+    search = request.GET.get('search')
 
-    page = request.GET.get('page')
+    if search:
 
-    metas = paginator.get_page(page)
+        metas = Meta.objects.filter(title__icontains=search)
+
+    else:
+
+        lista_metas = Meta.objects.all().order_by('-created_at')
+
+        paginator = Paginator(lista_metas, 5)
+
+        page = request.GET.get('page')
+
+        metas = paginator.get_page(page)
 
     return render(request, 'metas/lista.html', {'metas': metas})
 
+@login_required
 def metaView(request, id):
     meta = get_object_or_404(Meta, pk=id)
     return render(request, 'metas/meta.html', {'meta': meta})
 
+@login_required
 def novaMeta(request):
     if request.method == 'POST':
         form = NovaMetaForm(request.POST)
@@ -34,6 +48,7 @@ def novaMeta(request):
         form = NovaMetaForm()
         return render(request, 'metas/novameta.html', {'form': form})
 
+@login_required
 def editMeta(request, id):
     meta = get_object_or_404(Meta, pk=id)
     form = NovaMetaForm(instance=meta)
@@ -48,6 +63,7 @@ def editMeta(request, id):
     else:
         return render(request, 'metas/editmeta.html', {'form': form, 'meta': meta})
 
+@login_required
 def deleteMeta(request,id):
     meta = get_object_or_404(Meta, pk=id)
     meta.delete()

@@ -12,28 +12,32 @@
             </div>
         </a>
         <div class="col-9 search-div">
-            <input class="form-control" type="text" name="search" id="search" placeholder="digite aqui uma meta para buscar...">
-            <i class="fas fa-search"></i>
+            <form method="GET" id="search-form">
+                <input class="form-control" type="text" name="search" id="search" placeholder="Digite aqui uma meta para buscar..." value="{{ request.GET.search }}">
+                <i class="fas fa-search" id="search-btn"></i>
+            </form>
         </div>
         
         <ul class="tasks-list">
             {% for meta in metas %}
                 <li class="task-item">
                     <span><a href="/meta/{{ meta.id }}">{{ meta.title }}</a></span>
-                    <a href="delete/{{ meta.id }}"><span><i class="fas fa-trash"></i></span></a>
+                    <a href="delete/{{ meta.id }}" class="delete-btn"><span><i class="fas fa-trash"></i></span></a>
                     <a href="edit/{{ meta.id }}"><span><i class="fas fa-edit"></i></span></a>
                 </li>
             {% endfor %}
         </ul>
         <div class="pagination">
-            <span class="steo-links">
+            <span class="step-links">
                 {% if metas.has_previous %}
                     <a href="?page={{ metas.previous_page_number }}"><i class="fas fa-arrow-left"></i></a>
                 {% endif %}
 
-                <span>
-                    {{ metas.number }} de {{ metas.paginator.num_pages }}
-                </span>
+                {% if metas.paginator.num_pages %}
+                    <span class="current">
+                        {{ metas.number }} de {{ metas.paginator.num_pages }}
+                    </span>
+                {% endif %}
 
                 {% if metas.has_next %}
                     <a href="?page={{ metas.next_page_number }}"><i class="fas fa-arrow-right"></i></a>
