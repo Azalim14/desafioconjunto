@@ -1,5 +1,9 @@
-.container{
+.container-fluid{
     padding: 0;
+}
+
+.container-fluid .row{
+    margin: 0px;
 }
 
 /* navbar */
@@ -60,6 +64,65 @@
     display: inline-block;
 }
 
+/* filter */
+
+.filter-div{
+    margin-bottom: 20px;
+    padding: 0;
+}
+
+#filter{
+    display: inline-block;
+    width: 200px;
+    margin-left: 10px;
+}
+
+/* dashboards */
+
+.dashboard{
+    padding: 0;
+    width: 100%;
+    display: block;
+}
+
+.dashboard h4{
+    font-size: 20px;
+}
+
+.dashboard span{
+    font-size: 40px;
+    display: block;
+    width: 100%;
+}
+
+.dashboard-box{
+    float: left;
+    background-color: #DFDFDF;
+    color: #FFF;
+    padding: 20px;
+    box-sizing: border-box;
+    height: 130px;
+    width: 32%;
+    text-align: center;
+}
+
+.dashboard-box:nth-child(2){
+    margin-left: 1.5%;
+    margin-right: 1.5%;
+}
+
+#dashboard-lastdays{
+    background-color: #3476e2;
+}
+
+#dashboard-doing{
+    background-color: #db1e47;
+}
+
+#dashboard-done{
+    background-color: #13c43f;
+}
+
 /* Lista de Metas */
 
 .list-div{
@@ -74,11 +137,24 @@
     list-style: none;
     font-size: 20px;
     height: 50px;
+    padding: 0 15px;
     padding-top: 10px;
     border-bottom: 1px dashed #ccc;
 }
 
-.fas.fa-trash, .fas.fa-edit{
+.task-item.done{
+    background-color: #ccc;
+}
+
+.fas.fa-check{
+    color: #ccc;
+}
+
+.done .fas.fa-check{
+    color: #3476e2;
+}
+
+.fas.fa-trash, .fas.fa-edit, .fas.fa-check{
     cursor: pointer;
     margin: 5px;
     font-size: 20px;
@@ -131,8 +207,27 @@ footer p{
     margin-bottom: 130px;
 }
 
+.change-form-p{
+    margin-top: 30px;
+    text-align: center;
+}
+
+.btn-login{
+    margin-top: 20px;
+}
+
+.btn-register{
+    margin-top: 20px;
+}
+
 /* nova meta */
 
 .form-nova-meta{
     margin-bottom: 30px;
+}
+
+/* home */
+
+.home{
+    padding: 0;
 }

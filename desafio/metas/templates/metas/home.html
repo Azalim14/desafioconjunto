@@ -1,0 +1,23 @@
+{% extends 'base.html' %}
+
+{% block title %}Home{% endblock %}
+
+{% block content %}
+    <div class="col-12 home">
+        <h1>Home</h1>
+        <div class="container dashboard">
+            <div class="col-4 dashboard-box" id="dashboard-lastdays">
+                <h4>Finalizadas nos últimos 30 dias</h4>
+                <span>{{ metasrecently }}</span>
+            </div>
+            <div class="col-4 dashboard-box" id="dashboard-doing">
+                <h4>A atingir</h4>
+                <span>{{ metasdoing }}</span>
+            </div>
+            <div class="col-4 dashboard-box" id="dashboard-done">
+                <h4>Atingidas</h4>
+                <span>{{ metasdone }}</span>
+            </div>
+        </div>
+    </div>
+{% endblock %}
