@@ -1,3 +1,4 @@
+staticfiles/
 # created by virtualenv automatically
 __pycache__/
 *.py[cod]
