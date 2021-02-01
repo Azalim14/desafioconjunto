@@ -99,11 +99,13 @@ def home(request):
     metasDoneRecently = Meta.objects.filter(user=request.user, done='done', updated_at__gt=datetime.datetime.now()-datetime.timedelta(days=30)).count()
     metasDoing = Meta.objects.filter(done='doing', user=request.user).count()
     metasDone = Meta.objects.filter(done='done', user=request.user).count()
+    lista_metas = Meta.objects.all().order_by('-created_at').filter(user=request.user)[:3]
 
     data = {
         'metasrecently': metasDoneRecently,
         'metasdone': metasDone,
         'metasdoing': metasDoing,
+        'metas' : lista_metas,
     }
 
     return render(request, 'metas/home.html', data)

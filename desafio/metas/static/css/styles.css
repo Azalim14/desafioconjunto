@@ -231,3 +231,17 @@ footer p{
 .home{
     padding: 0;
 }
+
+.cards-div .card{
+    margin: 40px;
+}
+
+.cards-div{
+    margin-left: auto;
+    margin-top: auto;
+}
+
+.cards-div .card .card-text{
+    text-align: center;
+    font-size: larger;
+}

@@ -3,21 +3,88 @@
 {% block title %}Home{% endblock %}
 
 {% block content %}
-    <div class="col-12 home">
+    <div class="container home">
         <h1>Home</h1>
-        <div class="container dashboard">
-            <div class="col-4 dashboard-box" id="dashboard-lastdays">
-                <h4>Finalizadas nos últimos 30 dias</h4>
-                <span>{{ metasrecently }}</span>
+
+        <div class="row cards-div">
+
+            <div class="col-md-4">
+                <div class="card text-white bg-info mb-3">
+                    <div class="card-header">Eventos</div>
+                    <div class="card-body">
+                    <p class="card-text">{{ metasrecently }}</p>
+                    </div>
+                </div>
             </div>
-            <div class="col-4 dashboard-box" id="dashboard-doing">
-                <h4>A atingir</h4>
-                <span>{{ metasdoing }}</span>
+
+            <div class="col-md-4">
+                <div class="card text-white bg-warning mb-3">
+                    <div class="card-header">Comunicação</div>
+                    <div class="card-body">
+                    <p class="card-text">{{ metasrecently }}</p>
+                    </div>
+                </div>
             </div>
-            <div class="col-4 dashboard-box" id="dashboard-done">
-                <h4>Atingidas</h4>
-                <span>{{ metasdone }}</span>
+
+            <div class="col-md-4">
+                <div class="card">
+                    <div class="card-header">Comunicação</div>
+                    <div class="card-body">
+                        <ul class="list-group list-group-flush">
+                            {% for meta in metas %}
+                                <li class="list-group-item">{{ meta.title }}</li>
+                            {% endfor %}
+                        </ul>
+                    </div>
+                </div>
             </div>
+
+            <div class="col-md-4">
+                <div class="card text-white bg-primary mb-3">
+                    <div class="card-header">Eventos</div>
+                    <div class="card-body">
+                    <p class="card-text">{{ metasrecently }}</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-md-4">
+                <div class="card text-white bg-dark mb-3">
+                    <div class="card-header">Transformação</div>
+                    <div class="card-body">
+                    <p class="card-text">{{ metasrecently }}</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-md-4">
+                <div class="card text-white bg-success mb-3">
+                    <div class="card-header">Financeiro</div>
+                    <div class="card-body">
+                    <p class="card-text">{{ metasrecently }}</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-md-4">
+                <div class="card text-white bg-danger mb-3">
+                    <div class="card-header">Conteúdo</div>
+                    <div class="card-body">
+                    <p class="card-text">{{ metasrecently }}</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-md-4">
+                <div class="card text-white bg-secondary mb-3">
+                    <div class="card-header">Economia circular</div>
+                    <div class="card-body">
+                    <p class="card-text">{{ metasrecently }}</p>
+                    </div>
+                </div>
+            </div>
+
         </div>
+
     </div>
 {% endblock %}
