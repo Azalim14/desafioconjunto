@@ -9,9 +9,9 @@ STATUS = (
 )
 
 class Setor(models.Model):
-    name = models.CharField(max_length=50)
-    description = models.TextField()
-
+    name = models.CharField(max_length = 50)
+    ident = models.CharField(max_length = 50)
+    
     def __str__(self):
         return self.name
 
@@ -22,13 +22,13 @@ class Meta(models.Model):
     user = models.ForeignKey(get_user_model(), on_delete=models.CASCADE)
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
-    fk_setor = models.ForeignKey(Setor, on_delete = models.CASCADE)
+    setor = models.ForeignKey(Setor, on_delete = models.CASCADE)
 
     def __str__(self):
         return self.title
 
 class Comentario(models.Model):
     fk_meta = models.ForeignKey(Meta, on_delete = models.CASCADE)
-    user = models.ForeignKey(get_user_model(), on_delete = models.CASCADE)
-    created_at = models.DateTimeField(auto_now_add=True)
+    user = models.ForeignKey(get_user_model(), on_delete=models.CASCADE)
     content = models.TextField()
+    created_at = models.DateTimeField(auto_now_add=True)

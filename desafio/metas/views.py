@@ -41,7 +41,10 @@ def listaMeta(request):
 @login_required
 def metaView(request, id):
     meta = get_object_or_404(Meta, pk=id)
-    return render(request, 'metas/meta.html', {'meta': meta})
+
+    comentarios = Comentario.objects.filter(fk_meta = meta).order_by('-created_at')
+
+    return render(request, 'metas/meta.html', {'meta': meta, 'comentarios': comentarios})
 
 @login_required
 def novaMeta(request):
@@ -53,16 +56,32 @@ def novaMeta(request):
             meta.user = request.user
             meta.save()
             return redirect('/')
-        else:
-            return HttpResponse('uai')
     else:
         form = NovaMetaForm()
         return render(request, 'metas/novameta.html', {'form': form})
 
 @login_required
+def novoComentario(request, id):
+    meta = get_object_or_404(Meta, pk=id)
+    form = NovoComentarioForm(request.POST)
+
+    if request.method == 'POST':
+        form = NovoComentarioForm(request.POST)
+        if form.is_valid():
+            comentario = form.save(commit=False)
+            comentario.fk_meta = meta
+            comentario.user = request.user
+            comentario.save()
+            return redirect('/meta/' + str(meta.id))
+        else:
+            return render(request, 'metas/novocomentario.html', {'form': form})
+    else:
+        return render(request, 'metas/novocomentario.html', {'form': form})
+
+@login_required
 def editMeta(request, id):
     meta = get_object_or_404(Meta, pk=id)
-    form = NovaMetaForm(instance=meta)
+    form = NovaMetaForm()
 
     if request.method == 'POST':
         form = NovaMetaForm(request.POST, instance=meta)
