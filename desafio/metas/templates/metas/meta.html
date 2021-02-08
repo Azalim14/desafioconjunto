@@ -9,13 +9,12 @@
         <p>{{ meta.description }}</p>
     </div>
 
-    <a id="#add-link" href="/comentario/{{ meta.id }}">
-        <div class="col-2 add-div">
-            <i class="fa fa-plus"></i> Adicionar Comentário
-        </div>
-    </a>
-
     <div class="col-10 coments-list-div">
+        <a id="#add-coment-link" href="/comentario/{{ meta.id }}">
+            <div class="col-2 add-div">
+                <i class="fa fa-plus"></i> Adicionar Comentário
+            </div>
+        </a>
 
         <div class="row">
             {% for coment in comentarios %}

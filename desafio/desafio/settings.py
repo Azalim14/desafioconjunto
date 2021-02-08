@@ -12,7 +12,6 @@ https://docs.djangoproject.com/en/3.1/ref/settings/
 
 from pathlib import Path
 import os
-import django_heroku
 import dj_database_url
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
@@ -135,5 +134,3 @@ CRISPY_TEMPLATES_PACK = 'bootstrap4'
 LOGIN_REDIRECT_URL = '/home'
 
 LOGOUT_REDIRECT_URL = '/accounts/login'
-
-django_heroku.settings(locals())
