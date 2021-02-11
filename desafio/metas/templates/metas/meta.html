@@ -22,9 +22,18 @@
         
                 <div class="col-md-4">
                     <div class="card text-white bg-secondary mb-3">
-                        <div class="card-header">{{ coment.user.username }}|{{ coment.fk_meta.title }}</div>
+                        <div class="card-header">{{ coment.user.name }}|{{ coment.fk_meta.title }}</div>
                         <div class="card-body">
-                        <p class="card-text">{{ coment.content }}</p>
+                            <h6>O que foi feito?</h6>
+                            <p class="card-text">{{ coment.oquefoifeito }}</p>
+                            {% if coment.oquevaiserfeito|length > 0 %}
+                                <h6>O que vai ser feito?</h6>
+                                <p class="card-text">{{ coment.oquevaiserfeito }}</p>
+                            {% endif %}
+                            {% if coment.impedimento|length > 0 %}
+                                <h6>Impedimento</h6>
+                                <p class="card-text">{{ coment.impedimento }}</p>
+                            {% endif %}
                         </div>
                     </div>
                 </div>

@@ -8,7 +8,6 @@ import datetime
 
 # Create your views here.
 
-@login_required
 def listaMeta(request):
 
     search = request.GET.get('search')
@@ -16,15 +15,15 @@ def listaMeta(request):
 
     if search:
 
-        metas = Meta.objects.filter(title__icontains=search, user=request.user)
+        metas = Meta.objects.filter(title__icontains=search)
 
     elif filter:
 
-        metas = Meta.objects.filter(done=filter, user=request.user)
+        metas = Meta.objects.filter(done=filter)
 
     else:
 
-        lista_metas = Meta.objects.all().order_by('-created_at').filter(user=request.user)
+        lista_metas = Meta.objects.all().order_by('-created_at')
 
         paginator = Paginator(lista_metas, 5)
 
@@ -38,7 +37,6 @@ def listaMeta(request):
 
     return render(request, 'metas/lista.html', data)
 
-@login_required
 def metaView(request, id):
     meta = get_object_or_404(Meta, pk=id)
 
@@ -46,21 +44,18 @@ def metaView(request, id):
 
     return render(request, 'metas/meta.html', {'meta': meta, 'comentarios': comentarios})
 
-@login_required
 def novaMeta(request):
     if request.method == 'POST':
         form = NovaMetaForm(request.POST)
         if form.is_valid():
             meta = form.save(commit=False)
             meta.done = 'doing'
-            meta.user = request.user
             meta.save()
             return redirect('/')
     else:
         form = NovaMetaForm()
         return render(request, 'metas/novameta.html', {'form': form})
 
-@login_required
 def novoComentario(request, id):
     meta = get_object_or_404(Meta, pk=id)
     form = NovoComentarioForm(request.POST)
@@ -70,7 +65,6 @@ def novoComentario(request, id):
         if form.is_valid():
             comentario = form.save(commit=False)
             comentario.fk_meta = meta
-            comentario.user = request.user
             comentario.save()
             return redirect('/meta/' + str(meta.id))
         else:
@@ -78,7 +72,6 @@ def novoComentario(request, id):
     else:
         return render(request, 'metas/novocomentario.html', {'form': form})
 
-@login_required
 def editMeta(request, id):
     meta = get_object_or_404(Meta, pk=id)
     form = NovaMetaForm()
@@ -93,13 +86,11 @@ def editMeta(request, id):
     else:
         return render(request, 'metas/editmeta.html', {'form': form, 'meta': meta})
 
-@login_required
 def deleteMeta(request,id):
     meta = get_object_or_404(Meta, pk=id)
     meta.delete()
     return redirect('/')
 
-@login_required
 def changeStatus(request, id):
     meta = get_object_or_404(Meta, pk=id)
 
@@ -112,18 +103,13 @@ def changeStatus(request, id):
 
     return redirect('/')
 
-@login_required
 def home(request):
 
-    metasDoneRecently = Meta.objects.filter(user=request.user, done='done', updated_at__gt=datetime.datetime.now()-datetime.timedelta(days=30)).count()
-    metasDoing = Meta.objects.filter(done='doing', user=request.user).count()
-    metasDone = Meta.objects.filter(done='done', user=request.user).count()
-    lista_metas = Meta.objects.all().order_by('-created_at').filter(user=request.user)[:3]
+    metasDoneRecently = Meta.objects.filter(done='done', updated_at__gt=datetime.datetime.now()-datetime.timedelta(days=30)).count()
+    lista_metas = Meta.objects.all().order_by('-created_at')[:3]
 
     data = {
         'metasrecently': metasDoneRecently,
-        'metasdone': metasDone,
-        'metasdoing': metasDoing,
         'metas' : lista_metas,
     }
 

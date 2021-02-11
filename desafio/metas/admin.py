@@ -5,3 +5,4 @@ from . import models
 admin.site.register(models.Meta)
 admin.site.register(models.Comentario)
 admin.site.register(models.Setor)
+admin.site.register(models.Membro)

@@ -34,7 +34,7 @@
                 {% else %}
                     <li class="task-item done">  
                 {% endif %}
-                        <span><a href="/meta/{{ meta.id }}">{{ meta.title }} | {{ meta.description }} | {{ meta.user }}</a></span>
+                        <span><a href="/meta/{{ meta.id }}">{{ meta.title }} | {{ meta.description }} | {{ meta.responsavel }}</a></span>
                         <a href="delete/{{ meta.id }}" class="delete-btn"><span><i class="fas fa-trash"></i></span></a>
                         <a href="edit/{{ meta.id }}"><span><i class="fas fa-edit"></i></span></a>
                         <a href="changestatus/{{ meta.id }}"><span><i class="fas fa-check"></i></span></a>
