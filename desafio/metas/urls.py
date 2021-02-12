@@ -10,6 +10,7 @@ urlpatterns = [
     path('changestatus/<int:id>', views.changeStatus, name="change-status"),
     path('delete/<int:id>', views.deleteMeta, name="delete-meta"),
     path('comentario/<int:id>', views.novoComentario, name="novo-comentario"),
+    path('comentario/<int:id>/<int:porcentagem>', views.alterandoPorcentagem, name="alterando-porcentagem"),
 
 
 ]

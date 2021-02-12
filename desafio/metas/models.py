@@ -32,6 +32,8 @@ class Meta(models.Model):
     responsavel = models.ForeignKey(Membro, on_delete = models.CASCADE)
     membros = models.CharField(max_length = 250)
     entrega = models.DateField()
+    deletado = models.BooleanField()
+    porcentagem = models.IntegerField()
 
     def __str__(self):
         return self.title
@@ -43,3 +45,6 @@ class Comentario(models.Model):
     oquevaiserfeito = models.CharField(max_length = 255, blank = True)
     impedimento = models.CharField(max_length = 255, blank = True)
     created_at = models.DateTimeField(auto_now_add=True)
+
+    def __str__(self):
+        return self.fk_meta.title + " | " +self.user.name + " | " + str(self.created_at)

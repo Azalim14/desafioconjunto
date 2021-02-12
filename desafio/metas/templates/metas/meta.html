@@ -15,6 +15,12 @@
         </div>
     </a>
 
+    <form method="POST" id="formulario-porcentagem">
+        <label for="porcentagem">Alterar a porcentagem</label>
+        <input type="number" name="porcentagem" id="input-porcentagem" max="100" min="0" maxlength="3">
+        <input type="submit" value="Alterar">
+    </form>
+
     <div class="col-10 coments-list-div">
 
         <div class="row">
@@ -42,5 +48,14 @@
         </div>
         
     </div>
+
+    <script>
+
+        var inputPorcentagem = document.getElementById('input-porcentagem');
+        var formPorcentagem = document.getElementById('formulario-porcentagem');
+
+        console.log(inputPorcentagem.value);
+
+    </script>
 
 {% endblock %}

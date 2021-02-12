@@ -50,6 +50,8 @@ def novaMeta(request):
         if form.is_valid():
             meta = form.save(commit=False)
             meta.done = 'doing'
+            meta.deletado = False
+            meta.porcentagem = 0
             meta.save()
             return redirect('/')
     else:
@@ -88,7 +90,8 @@ def editMeta(request, id):
 
 def deleteMeta(request,id):
     meta = get_object_or_404(Meta, pk=id)
-    meta.delete()
+    meta.deletado = True
+    meta.save()
     return redirect('/')
 
 def changeStatus(request, id):
@@ -114,3 +117,25 @@ def home(request):
     }
 
     return render(request, 'metas/home.html', data)
+
+def alterandoPorcentagem(request, id, porcentagem):
+    meta = get_object_or_404(Meta, pk=id)
+    form = NovoComentarioForm(request.POST)
+    
+
+    if request.method == 'POST':
+        formMeta = NovaMetaForm(request.POST, instance=meta)
+        form = NovoComentarioForm(request.POST)
+        if form.is_valid():
+            comentario = form.save(commit=False)
+            comentario.fk_meta = meta
+            comentario.save()
+            if formMeta.is_valid():
+                meta = formMeta.save()
+                meta.porcentagem = porcentagem
+                meta.save()
+            return redirect('/meta/' + str(meta.id))
+        else:
+            return render(request, 'metas/novocomentario.html', {'form': form})
+    else:
+        return render(request, 'metas/novocomentario.html', {'form': form})
