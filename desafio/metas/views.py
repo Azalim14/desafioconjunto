@@ -88,9 +88,15 @@ def editMeta(request, id):
     else:
         return render(request, 'metas/editmeta.html', {'form': form, 'meta': meta})
 
-def deleteMeta(request,id):
+def deleteMeta(request, id):
     meta = get_object_or_404(Meta, pk=id)
     meta.deletado = True
+    meta.save()
+    return redirect('/')
+
+def activateMeta(request, id):
+    meta = get_object_or_404(Meta, pk=id)
+    meta.deletado = False
     meta.save()
     return redirect('/')
 
@@ -122,20 +128,45 @@ def alterandoPorcentagem(request, id, porcentagem):
     meta = get_object_or_404(Meta, pk=id)
     form = NovoComentarioForm(request.POST)
     
-
     if request.method == 'POST':
-        formMeta = NovaMetaForm(request.POST, instance=meta)
         form = NovoComentarioForm(request.POST)
         if form.is_valid():
             comentario = form.save(commit=False)
             comentario.fk_meta = meta
             comentario.save()
-            if formMeta.is_valid():
-                meta = formMeta.save()
-                meta.porcentagem = porcentagem
-                meta.save()
+            meta.porcentagem = porcentagem
+            meta.save()
             return redirect('/meta/' + str(meta.id))
         else:
             return render(request, 'metas/novocomentario.html', {'form': form})
     else:
         return render(request, 'metas/novocomentario.html', {'form': form})
+
+def listaDeletadas(request):
+
+    search = request.GET.get('search')
+    filter = request.GET.get('filter')
+
+    if search:
+
+        metas = Meta.objects.filter(title__icontains=search, deletado=True)
+
+    elif filter:
+
+        metas = Meta.objects.filter(done=filter, deletado=True)
+
+    else:
+
+        lista_metas = Meta.objects.filter(deletado=True).order_by('-created_at')
+
+        paginator = Paginator(lista_metas, 5)
+
+        page = request.GET.get('page')
+
+        metas = paginator.get_page(page)
+
+    data = {
+        'metas': metas,
+    }
+
+    return render(request, 'metas/listaDeletadas.html', data)

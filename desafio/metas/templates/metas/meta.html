@@ -15,9 +15,12 @@
         </div>
     </a>
 
+    <input type="hidden" name="idmeta" id="id-meta" value="{{ meta.id }}">
+
     <form method="POST" id="formulario-porcentagem">
+        {% csrf_token %}
         <label for="porcentagem">Alterar a porcentagem</label>
-        <input type="number" name="porcentagem" id="input-porcentagem" max="100" min="0" maxlength="3">
+        <input type="number" name="porcentagem" id="input-porcentagem" max="100" min="0" maxlength="3" placeholder="{{ meta.porcentagem }}">
         <input type="submit" value="Alterar">
     </form>
 
@@ -48,14 +51,5 @@
         </div>
         
     </div>
-
-    <script>
-
-        var inputPorcentagem = document.getElementById('input-porcentagem');
-        var formPorcentagem = document.getElementById('formulario-porcentagem');
-
-        console.log(inputPorcentagem.value);
-
-    </script>
 
 {% endblock %}

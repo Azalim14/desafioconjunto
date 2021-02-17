@@ -16,3 +16,8 @@ class NovoComentarioForm(forms.ModelForm):
     class Meta:
         model = Comentario
         fields = ('user', 'oquefoifeito', 'oquevaiserfeito', 'impedimento')
+
+class AlterandoPorcentagemForm(forms.ModelForm):
+    class Meta:
+        model = Meta
+        fields = ('porcentagem', )
