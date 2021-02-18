@@ -7,29 +7,57 @@
     <div class="offset-1 col-10 list-div">
         <h1>{{ meta.title }}</h1>
         <p>{{ meta.description }}</p>
+        <h4>Responsável: {{ meta.responsavel }}</h4>
+        <p>Membros: {{ meta.membros }}</p>
+        <h6>Data para entrega: {{ meta.entrega }}</h6>
+        <h6>Criada em: {{ meta.created_at }}</h6>
+        <h6>Progresso: {{ meta.porcentagem }}%</h6>
+        <form method="POST" id="formulario-porcentagem">
+            {% csrf_token %}
+            <label for="porcentagem">Alterar a porcentagem</label>
+            <input type="number" name="porcentagem" id="input-porcentagem" max="100" min="0" maxlength="3" placeholder="{{ meta.porcentagem }}">
+            <input type="submit" value="Alterar">
+        </form>
     </div>
 
-    <a id="#add-link" href="/comentario/{{ meta.id }}">
-        <div class="col-2 add-div">
-            <i class="fa fa-plus"></i> Adicionar Comentário
-        </div>
-    </a>
+    
+
+    <div class="add-comentario">
+        <a id="#add-link" href="/comentario/{{ meta.id }}">
+            <div class="col-2 add-div">
+                <i class="fa fa-plus"></i> Adicionar Comentário
+            </div>
+        </a>
+    </div>
 
     <input type="hidden" name="idmeta" id="id-meta" value="{{ meta.id }}">
-
-    <form method="POST" id="formulario-porcentagem">
-        {% csrf_token %}
-        <label for="porcentagem">Alterar a porcentagem</label>
-        <input type="number" name="porcentagem" id="input-porcentagem" max="100" min="0" maxlength="3" placeholder="{{ meta.porcentagem }}">
-        <input type="submit" value="Alterar">
-    </form>
 
     <div class="col-10 coments-list-div">
 
         <div class="row">
+            <div class="list-group col-10 coment-list">
             {% for coment in comentarios %}
-        
-                <div class="col-md-4">
+
+                <a href="#" class="list-group-item list-group-item-action flex-column align-items-start">
+                    <div class="d-flex w-100 justify-content-between">
+                        <h5 class="mb-1">{{ coment.user.name }}|{{ coment.fk_meta.title }}</h5>
+                        <small class="text-muted">{{ coment.created_at }}</small>
+                    </div>
+                    <h6>O que foi feito?</h6>
+                    <p class="mb-1">{{ coment.oquefoifeito }}</p>
+                    {% if coment.oquevaiserfeito|length > 0 %}
+                        <h6>O que vai ser feito?</h6>
+                        <p class="mb-1">{{ coment.oquevaiserfeito }}</p>
+                    {% endif %}
+                    {% if coment.impedimento|length > 0 %}
+                        <h6>Impedimento</h6>
+                        <p class="mb-1">{{ coment.impedimento }}</p>
+                    {% endif %}
+                    <small class="text-muted">Donec id elit non mi porta.</small>
+                </a>
+
+                <!--
+                    <div class="col-md-4">
                     <div class="card text-white bg-secondary mb-3">
                         <div class="card-header">{{ coment.user.name }}|{{ coment.fk_meta.title }}</div>
                         <div class="card-body">
@@ -46,8 +74,10 @@
                         </div>
                     </div>
                 </div>
+                -->
                 
             {% endfor %}
+            </div>
         </div>
         
     </div>

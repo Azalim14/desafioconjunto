@@ -135,12 +135,10 @@
 }
 
 .task-item{
-    list-style: none;
     font-size: 20px;
     height: 50px;
     padding: 0 15px;
     padding-top: 10px;
-    border-bottom: 1px dashed #ccc;
 }
 
 .task-item.done{
@@ -245,4 +243,18 @@ footer p{
 .cards-div .card .card-text{
     text-align: center;
     font-size: larger;
+}
+
+/* comentários */
+
+.coment-list{
+    margin-left: auto;
+    overflow: auto;
+    height: 400px;
+    padding: 30px;
+}
+
+.add-comentario{
+    padding-left: 20px;
+    padding-top: 20px;
 }

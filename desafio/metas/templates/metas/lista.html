@@ -27,9 +27,27 @@
             </select>
         </div>
         
-        <ul class="tasks-list">
+        <!--<ul class="tasks-list">-->
+        
             {% for meta in metas %}
                 {% if meta.deletado == False %}
+                
+                <div class="list-group tasks-list">
+                    <a href="/meta/{{ meta.id }}" class="list-group-item list-group-item-action flex-column align-items-start">
+                        <div class="d-flex w-100 justify-content-between">
+                            <h5 class="mb-1">{{ meta.title }} | {{ meta.responsavel }}</h5>
+                            <small class="text-muted">{{ meta.entrega }}</small>
+                            
+                        </div>
+                        <p class="mb-1">{{ meta.description }}</p>
+                        <small class="text-muted">{{ meta.created_at }}</small>
+                    </a>
+                    <a href="delete/{{ meta.id }}" class="delete-btn"><span><i class="fas fa-trash"></i></span></a>
+                    <a href="edit/{{ meta.id }}"><span><i class="fas fa-edit"></i></span></a>
+                    <a href="changestatus/{{ meta.id }}"><span><i class="fas fa-check"></i></span></a>
+                </div>
+                
+                    <!--
                     {% if meta.done == 'doing' %}
                         <li class="task-item">
                     {% else %}
@@ -40,9 +58,9 @@
                             <a href="edit/{{ meta.id }}"><span><i class="fas fa-edit"></i></span></a>
                             <a href="changestatus/{{ meta.id }}"><span><i class="fas fa-check"></i></span></a>
                         </li>
+                    -->
                 {% endif %}
             {% endfor %}
-        </ul>
         <div class="pagination">
             <span class="step-links">
                 {% if metas.has_previous %}
