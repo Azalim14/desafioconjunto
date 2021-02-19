@@ -141,6 +141,7 @@ def alterandoPorcentagem(request, id, porcentagem):
             return render(request, 'metas/novocomentario.html', {'form': form})
     else:
         return render(request, 'metas/novocomentario.html', {'form': form})
+        
 @login_required
 def listaDeletadas(request):
 
