@@ -25,7 +25,7 @@ def listaMeta(request):
 
         lista_metas = Meta.objects.all().order_by('-created_at')
 
-        paginator = Paginator(lista_metas, 5)
+        paginator = Paginator(lista_metas, 3)
 
         page = request.GET.get('page')
 
@@ -141,7 +141,7 @@ def alterandoPorcentagem(request, id, porcentagem):
             return render(request, 'metas/novocomentario.html', {'form': form})
     else:
         return render(request, 'metas/novocomentario.html', {'form': form})
-
+@login_required
 def listaDeletadas(request):
 
     search = request.GET.get('search')
