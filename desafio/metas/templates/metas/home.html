@@ -7,82 +7,25 @@
         <h1>Home</h1>
 
         <div class="row cards-div">
+            
+            {% for setor in setores %}
 
-            <div class="col-md-4">
-                <div class="card text-white bg-info mb-3">
-                    <div class="card-header">Eventos</div>
-                    <div class="card-body">
-                    <p class="card-text">{{ metasrecently }}</p>
+                <div class="col-md-4">
+                    <div class="card">
+                        <div class="card-header"><a href="{% url 'lista-setor' setor.ident %}">{{ setor.name }}</a></div>
+                        <div class="card-body">
+                            <ul class="list-group list-group-flush">
+                                {% for meta in metas %}
+                                    {% if meta.setor == setor %}
+                                        <a href="{% url 'meta-view' meta.id %}"><li class="list-group-item">{{ meta.title }}</li></a>
+                                    {% endif %}
+                                {% endfor %}
+                            </ul>
+                        </div>
                     </div>
                 </div>
-            </div>
 
-            <div class="col-md-4">
-                <div class="card text-white bg-warning mb-3">
-                    <div class="card-header">Comunicação</div>
-                    <div class="card-body">
-                    <p class="card-text">{{ metasrecently }}</p>
-                    </div>
-                </div>
-            </div>
-
-            <div class="col-md-4">
-                <div class="card">
-                    <div class="card-header">Comunicação</div>
-                    <div class="card-body">
-                        <ul class="list-group list-group-flush">
-                            {% for meta in metas %}
-                                <li class="list-group-item">{{ meta.title }}</li>
-                            {% endfor %}
-                        </ul>
-                    </div>
-                </div>
-            </div>
-
-            <div class="col-md-4">
-                <div class="card text-white bg-primary mb-3">
-                    <div class="card-header">Eventos</div>
-                    <div class="card-body">
-                    <p class="card-text">{{ metasrecently }}</p>
-                    </div>
-                </div>
-            </div>
-
-            <div class="col-md-4">
-                <div class="card text-white bg-dark mb-3">
-                    <div class="card-header">Transformação</div>
-                    <div class="card-body">
-                    <p class="card-text">{{ metasrecently }}</p>
-                    </div>
-                </div>
-            </div>
-
-            <div class="col-md-4">
-                <div class="card text-white bg-success mb-3">
-                    <div class="card-header">Financeiro</div>
-                    <div class="card-body">
-                    <p class="card-text">{{ metasrecently }}</p>
-                    </div>
-                </div>
-            </div>
-
-            <div class="col-md-4">
-                <div class="card text-white bg-danger mb-3">
-                    <div class="card-header">Conteúdo</div>
-                    <div class="card-body">
-                    <p class="card-text">{{ metasrecently }}</p>
-                    </div>
-                </div>
-            </div>
-
-            <div class="col-md-4">
-                <div class="card text-white bg-secondary mb-3">
-                    <div class="card-header">Economia circular</div>
-                    <div class="card-body">
-                    <p class="card-text">{{ metasrecently }}</p>
-                    </div>
-                </div>
-            </div>
+            {% endfor %}
 
         </div>
 

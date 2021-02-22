@@ -114,12 +114,14 @@ def changeStatus(request, id):
 
 def home(request):
 
+    setores = Setor.objects.all().order_by('name')
     metasDoneRecently = Meta.objects.filter(done='done', updated_at__gt=datetime.datetime.now()-datetime.timedelta(days=30)).count()
     lista_metas = Meta.objects.all().order_by('-created_at')[:3]
 
     data = {
         'metasrecently': metasDoneRecently,
         'metas' : lista_metas,
+        'setores' : setores,
     }
 
     return render(request, 'metas/home.html', data)
@@ -171,3 +173,34 @@ def listaDeletadas(request):
     }
 
     return render(request, 'metas/listaDeletadas.html', data)
+
+def listaSetor(request, setorLista):
+
+    setorFiltro = get_object_or_404(Setor, ident=setorLista)
+    search = request.GET.get('search')
+    filter = request.GET.get('filter')
+
+    if search:
+
+        metas = Meta.objects.filter(title__icontains=search, )
+
+    elif filter:
+
+        metas = Meta.objects.filter(done=filter)
+
+    else:
+
+        lista_metas = Meta.objects.filter(setor=setorFiltro).order_by('-created_at')
+
+        paginator = Paginator(lista_metas, 3)
+
+        page = request.GET.get('page')
+
+        metas = paginator.get_page(page)
+
+    data = {
+        'metas': metas,
+        'setor': setorFiltro.name,
+    }
+
+    return render(request, 'metas/listasetor.html', data)
