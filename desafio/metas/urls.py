@@ -16,5 +16,6 @@ urlpatterns = [
     path('deletadas/', views.listaDeletadas, name="lista-deletadas"),
     path('<str:setorLista>', views.listaSetor, name="lista-setor"),
     path('sobre/', views.sobre, name="sobre"),
+    path('deletamesmo/<int:id>', views.deletaMesmo, name="deleta-mesmo"),
 
 ]

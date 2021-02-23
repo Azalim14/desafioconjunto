@@ -15,15 +15,15 @@ def listaMeta(request):
 
     if search:
 
-        metas = Meta.objects.filter(title__icontains=search)
+        metas = Meta.objects.filter(title__icontains=search, deletado=False)
 
     elif filter:
 
-        metas = Meta.objects.filter(done=filter)
+        metas = Meta.objects.filter(done=filter, deletado=False)
 
     else:
 
-        lista_metas = Meta.objects.all().order_by('-created_at')
+        lista_metas = Meta.objects.filter(deletado=False).order_by('-created_at')
 
         paginator = Paginator(lista_metas, 3)
 
@@ -109,6 +109,12 @@ def deleteMeta(request, id):
     meta.deletado = True
     meta.save()
     return redirect('/')
+
+@login_required
+def deletaMesmo(request, id):
+    meta = get_object_or_404(Meta, pk=id)
+    meta.delete()
+    return redirect('/deletadas/')
 
 def activateMeta(request, id):
     meta = get_object_or_404(Meta, pk=id)
@@ -199,15 +205,15 @@ def listaSetor(request, setorLista):
 
     if search:
 
-        metas = Meta.objects.filter(title__icontains=search, )
+        metas = Meta.objects.filter(title__icontains=search, setor=setorFiltro)
 
     elif filter:
 
-        metas = Meta.objects.filter(done=filter)
+        metas = Meta.objects.filter(done=filter, setor=setorFiltro)
 
     else:
 
-        lista_metas = Meta.objects.filter(setor=setorFiltro).order_by('-created_at')
+        lista_metas = Meta.objects.filter(setor=setorFiltro, deletado=False).order_by('-created_at')
 
         paginator = Paginator(lista_metas, 3)
 
