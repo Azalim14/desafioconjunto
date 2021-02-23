@@ -12,6 +12,14 @@ class NovaMetaForm(forms.ModelForm):
             'entrega': DateInput(attrs={'type': 'date'})
         }
 
+class NovaMetaSetorForm(forms.ModelForm):
+    class Meta:
+        model = Meta
+        fields = ('title', 'description', 'responsavel', 'membros', 'entrega')
+        widgets = {
+            'entrega': DateInput(attrs={'type': 'date'})
+        }
+
 class NovoComentarioForm(forms.ModelForm):
     class Meta:
         model = Comentario

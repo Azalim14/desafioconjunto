@@ -184,16 +184,28 @@
 
 footer{
     background-color: #333;
-    height: 160px;
+    height: 200px;
     border-top: 2px solid #202020;
+}
+
+
+footer .titulo{
+    color: #f5f5f5;
+    text-align: center;
+    top: 10%;
+    position: relative;
 }
 
 footer p{
     color: #f5f5f5;
-    text-align: center;
-    top: 50%;
-    position: relative;
 }
+
+footer .estagiarios{
+    padding-left: 30px;
+    color: #f5f5f5;
+}
+
+
 
 /* Pagination */
 
@@ -269,4 +281,36 @@ footer p{
 .add-comentario{
     padding-left: 20px;
     padding-top: 20px;
+}
+
+/* sobre a plataforma */
+
+.sobre{
+    padding-top: 20px;
+    padding-bottom: 10px;
+}
+
+.lista-fazer{
+    padding-top: 10px;
+    padding-bottom: 10px;
+}
+
+.mais-sobre{
+    padding-top: 10px;
+    padding-bottom: 10px;
+}
+
+.proximas{
+    padding-top: 10px;
+    padding-bottom: 20px;
+}
+
+
+
+.sobre-a-plataforma{
+    padding: 0;
+}
+
+.estagiarios li{
+    list-style-type: none;
 }

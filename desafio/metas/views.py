@@ -58,6 +58,22 @@ def novaMeta(request):
         form = NovaMetaForm()
         return render(request, 'metas/novameta.html', {'form': form})
 
+def novaMetaSetor(request, setorP):
+    if request.method == 'POST':
+        setor = get_object_or_404(Setor, ident=setorP)
+        form = NovaMetaSetorForm(request.POST)
+        if form.is_valid():
+            meta = form.save(commit=False)
+            meta.done = 'doing'
+            meta.deletado = False
+            meta.porcentagem = 0
+            meta.setor = setor
+            meta.save()
+            return redirect('/' + setor.ident)
+    else:
+        form = NovaMetaSetorForm()
+        return render(request, 'metas/novameta.html', {'form': form})
+
 def novoComentario(request, id):
     meta = get_object_or_404(Meta, pk=id)
     form = NovoComentarioForm(request.POST)
@@ -114,6 +130,7 @@ def changeStatus(request, id):
 
 def home(request):
 
+    setores = Setor.objects.all().order_by('name')
     setores = Setor.objects.all().order_by('name')
     metasDoneRecently = Meta.objects.filter(done='done', updated_at__gt=datetime.datetime.now()-datetime.timedelta(days=30)).count()
     lista_metas = Meta.objects.all().order_by('-created_at')[:3]
@@ -200,7 +217,10 @@ def listaSetor(request, setorLista):
 
     data = {
         'metas': metas,
-        'setor': setorFiltro.name,
+        'setor': setorFiltro,
     }
 
     return render(request, 'metas/listasetor.html', data)
+
+def sobre(request):
+    return render(request, 'metas/sobre.html')

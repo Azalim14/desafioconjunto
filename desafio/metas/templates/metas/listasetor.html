@@ -4,9 +4,9 @@
 
 {% block content %}
     <div class="offset-1 col-10 list-div">
-        <h1>Lista de Metas {{ setor }}</h1>
+        <h1>Lista de Metas {{ setor.name }}</h1>
         <a id="#add-link{
-            " href="novameta/">
+            " href="novameta/{{ setor.ident }}">
             <div class="col-2 add-div">
                 <i class="fa fa-plus"></i> Adicionar Meta
             </div>
