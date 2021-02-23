@@ -13,7 +13,6 @@ urlpatterns = [
     path('comentario/<int:id>', views.novoComentario, name="novo-comentario"),
     path('comentario/<int:id>/<int:porcentagem>', views.alterandoPorcentagem, name="alterando-porcentagem"),
     path('deletadas/', views.listaDeletadas, name="lista-deletadas"),
-
-
+    path('<str:setorLista>', views.listaSetor, name="lista-setor"),
 
 ]
