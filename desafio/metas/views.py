@@ -144,6 +144,7 @@ def home(request):
         'metasrecently': metasDoneRecently,
         'metas' : lista_metas,
         'setores' : setores,
+        'data' : datetime.date.today(),
     }
 
     return render(request, 'metas/home.html', data)
