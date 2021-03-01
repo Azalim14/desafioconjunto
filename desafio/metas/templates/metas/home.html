@@ -10,14 +10,21 @@
             
             {% for setor in setores %}
 
-                <div class="col-md-4">
+                <div class="col-md-6 home-card">
                     <div class="card">
-                        <div class="card-header"><a href="{% url 'lista-setor' setor.ident %}">{{ setor.name }}</a></div>
+                        <div class="card-header" style="background-color: #006635;"><a href="{% url 'lista-setor' setor.ident %}">{{ setor.name }}</a></div>
                         <div class="card-body">
                             <ul class="list-group list-group-flush">
                                 {% for meta in metas %}
                                     {% if meta.setor == setor %}
-                                        <a href="{% url 'meta-view' meta.id %}"><li class="list-group-item">{{ meta.title }}</li></a>
+                                        <li class="list-group-item">
+                                            <a href="{% url 'meta-view' meta.id %}">{{ meta.title }}</a>
+                                            <div class="progress">
+                                                <div class="progress-bar progress-bar-striped bg-success progress-bar-animated" style="width: {{ meta.porcentagem }}%;" role="progressbar" aria-valuenow="{{ meta.porcentagem }}" aria-valuemin="0" aria-valuemax="100">
+                                                    {{ meta.porcentagem }}%
+                                                </div>
+                                            </div>
+                                        </li>
                                     {% endif %}
                                 {% endfor %}
                             </ul>

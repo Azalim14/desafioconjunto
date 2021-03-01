@@ -138,7 +138,7 @@ def home(request):
 
     setores = Setor.objects.all().order_by('name')
     metasDoneRecently = Meta.objects.filter(done='done', updated_at__gt=datetime.datetime.now()-datetime.timedelta(days=30)).count()
-    lista_metas = Meta.objects.filter(deletado=False).order_by('-created_at')[:3]
+    lista_metas = Meta.objects.filter(deletado=False).order_by('-created_at')
 
     data = {
         'metasrecently': metasDoneRecently,

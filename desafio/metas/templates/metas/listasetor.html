@@ -42,9 +42,13 @@
 
                             <div class="d-flex w-100 justify-content-between">
                                 <h5 class="mb-1">{{ meta.title }} | {{ meta.responsavel }}</h5>
-                                <h6 class="mb-1">{{ meta.porcentagem }}%</h6>
                                 <small class="text-muted">{{ meta.entrega }}</small>
                                 
+                            </div>
+                            <div class="progress">
+                                <div class="progress-bar progress-bar-striped bg-success progress-bar-animated" style="width: {{ meta.porcentagem }}%;" role="progressbar" aria-valuenow="{{ meta.porcentagem }}" aria-valuemin="0" aria-valuemax="100" style="width: 75%">
+                                    {{ meta.porcentagem }}%
+                                </div>
                             </div>
                             <p class="mb-1">{{ meta.description }}</p>
                             <small class="text-muted">{{ meta.created_at }}</small>
