@@ -18,9 +18,11 @@
             </form>
         </div>
 
+        <input type="hidden" name="urlSetor" id="url-setor" value="/{{ setor.ident }}">
+
         <div class="col-12 filter-div">
             <span>Filtrar por:</span>
-            <select name="filter" id="filter" class="form-control">
+            <select name="filter" id="filterS" class="form-control">
                 <option value="">Escolha uma opção</option>
                 <option value="done">Metas atingidas</option>
                 <option value="doing">Metas a atingir</option>
@@ -41,7 +43,7 @@
                     {% endif %}
 
                             <div class="d-flex w-100 justify-content-between">
-                                <h5 class="mb-1">{{ meta.title }} | {{ meta.responsavel }}</h5>
+                                <h5 class="mb-1">Título: {{ meta.titulo }} | Responsável: {{ meta.responsavel }}</h5>
                                 <small class="text-muted">{{ meta.entrega }}</small>
                                 
                             </div>
@@ -50,7 +52,7 @@
                                     {{ meta.porcentagem }}%
                                 </div>
                             </div>
-                            <p class="mb-1">{{ meta.description }}</p>
+                            <p class="mb-1">{{ meta.descricao }}</p>
                             <small class="text-muted">{{ meta.created_at }}</small>
                             <a href="delete/{{ meta.id }}" class="delete-btn"><span><i class="fas fa-trash"></i></span></a>
                             <a href="edit/{{ meta.id }}"><span><i class="fas fa-edit"></i></span></a>

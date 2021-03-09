@@ -8,6 +8,14 @@ STATUS = (
     ('done', 'Done')
 )
 
+COR = (
+    ('verde', 'Verde'),
+    ('amarelo', 'Amarelo'),
+    ('vermelho', 'Vermelho'),
+    ('azul', 'Azul'),
+    ('cinza', 'Cinza')
+)
+
 class Setor(models.Model):
     name = models.CharField(max_length = 50)
     ident = models.CharField(max_length = 50)
@@ -23,10 +31,10 @@ class Membro(models.Model):
         return self.name
 
 class Meta(models.Model):
-    title = models.CharField(max_length=255)
-    description = models.TextField()
+    titulo = models.CharField(max_length=255)
+    descricao = models.TextField()
     done = models.CharField(max_length=5, choices=STATUS)
-    created_at = models.DateTimeField(auto_now_add=True)
+    created_at = models.DateField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
     setor = models.ForeignKey(Setor, on_delete = models.CASCADE)
     responsavel = models.ForeignKey(Membro, on_delete = models.CASCADE)
@@ -34,17 +42,18 @@ class Meta(models.Model):
     entrega = models.DateField()
     deletado = models.BooleanField()
     porcentagem = models.IntegerField()
+    semaforo = models.CharField(max_length=8, choices=COR)
 
     def __str__(self):
-        return self.title
+        return self.titulo
 
 class Comentario(models.Model):
     fk_meta = models.ForeignKey(Meta, on_delete = models.CASCADE)
-    user = models.ForeignKey(Membro, on_delete=models.CASCADE)
+    usuario = models.ForeignKey(Membro, on_delete=models.CASCADE)
     oquefoifeito = models.CharField(max_length = 255)
     oquevaiserfeito = models.CharField(max_length = 255, blank = True)
     impedimento = models.CharField(max_length = 255, blank = True)
     created_at = models.DateTimeField(auto_now_add=True)
 
     def __str__(self):
-        return self.fk_meta.title + " | " +self.user.name + " | " + str(self.created_at)
+        return self.fk_meta.titulo + " | " +self.usuario.name + " | " + str(self.created_at)

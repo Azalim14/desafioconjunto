@@ -5,6 +5,8 @@ $(document).ready(function() {
     var searchBtn = $('#search-btn');
     var searchForm = $('#search-form');
     var filter = $('#filter');
+    var filterS = $('#filterS');
+    var urlSetor = $('#url-setor').val();
 
     $(deleteBtn).on('click', function(e) {
         e.preventDefault();
@@ -25,6 +27,11 @@ $(document).ready(function() {
     $(filter).change(function(){
         var filter = $(this).val();
         window.location.href = baseUrl + '?filter=' + filter;
+    });
+
+    $(filterS).change(function(){
+        var filter = $(this).val();
+        window.location.href = baseUrl + urlSetor + '?filter=' + filter;
     });
 
     var formPorcentagem = $('#formulario-porcentagem');

@@ -4,7 +4,7 @@
 
 {% block content %}
     <div class="container home">
-        <h1>Home</h1>
+        <h1>Nome Legal</h1>
 
         <div class="row cards-div">
             
@@ -18,7 +18,7 @@
                                 {% for meta in metas %}
                                     {% if meta.setor == setor %}
                                         <li class="list-group-item">
-                                            <a href="{% url 'meta-view' meta.id %}">{{ meta.title }}</a>
+                                            <a href="{% url 'meta-view' meta.id %}" class="meta-title">{{ meta.titulo }}</a>
                                             <div class="progress">
                                                 {% if data < meta.entrega %}
                                                     <div class="progress-bar progress-bar-striped bg-success progress-bar-animated" style="width: {{ meta.porcentagem }}%;" role="progressbar" aria-valuenow="{{ meta.porcentagem }}" aria-valuemin="0" aria-valuemax="100">

@@ -22,12 +22,9 @@
 }
 
 .navbar-light .navbar-nav a.nav-link{
+    text-decoration: none;
     color: #ccc;
     letter-spacing: 1px;
-}
-
-nav .menu li a:link{
-    color: #ccc;
 }
 
 /* Botão adicionar meta */
@@ -267,11 +264,19 @@ footer .estagiarios{
     border-top: none;
 }
 
-.home-card a:link{
+.card-header a:link{
+    color: #fff;
+}
+
+.card-header a:visited{
+    color: #fff;
+}
+
+.meta-title:link{
     color: #202020;
 }
 
-.home-card a:visited{
+.meta-title:visited{
     color: #202020;
 }
 

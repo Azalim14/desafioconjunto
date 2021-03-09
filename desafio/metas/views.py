@@ -52,6 +52,7 @@ def novaMeta(request):
             meta.done = 'doing'
             meta.deletado = False
             meta.porcentagem = 0
+            meta.semaforo = 'verde'
             meta.save()
             return redirect('/')
     else:
@@ -68,11 +69,13 @@ def novaMetaSetor(request, setorP):
             meta.deletado = False
             meta.porcentagem = 0
             meta.setor = setor
+            meta.semaforo = 'verde'
             meta.save()
             return redirect('/' + setor.ident)
     else:
+        setor = get_object_or_404(Setor, ident=setorP)
         form = NovaMetaSetorForm()
-        return render(request, 'metas/novameta.html', {'form': form})
+        return render(request, 'metas/novameta.html', {'form': form, 'setor': setor.name})
 
 def novoComentario(request, id):
     meta = get_object_or_404(Meta, pk=id)
@@ -92,7 +95,7 @@ def novoComentario(request, id):
 
 def editMeta(request, id):
     meta = get_object_or_404(Meta, pk=id)
-    form = NovaMetaForm()
+    form = NovaMetaForm(instance=meta)
 
     if request.method == 'POST':
         form = NovaMetaForm(request.POST, instance=meta)
@@ -209,7 +212,7 @@ def listaSetor(request, setorLista):
 
     elif filter:
 
-        metas = Meta.objects.filter(done=filter, setor=setorFiltro)
+        metas = Meta.objects.filter(setor=setorFiltro, done=filter)
 
     else:
 

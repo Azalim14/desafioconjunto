@@ -5,8 +5,8 @@
 
 {% block content %}
     <div class="offset-1 col-10 meta-view">
-        <h1>{{ meta.title }}</h1>
-        <p>{{ meta.description }}</p>
+        <h1>{{ meta.titulo }}</h1>
+        <p>{{ meta.descricao }}</p>
         <h4>Responsável: {{ meta.responsavel }}</h4>
         <p>Membros: {{ meta.membros }}</p>
         <h6>Data para entrega: {{ meta.entrega }}</h6>
@@ -18,7 +18,7 @@
         </div>
         <form method="POST" id="formulario-porcentagem">
             {% csrf_token %}
-            <label for="porcentagem">Alterar a porcentagem</label>
+            <label for="porcentagem">Percentual de Conclusão</label>
             <input type="number" name="porcentagem" id="input-porcentagem" max="100" min="0" maxlength="3" placeholder="{{ meta.porcentagem }}">
             <input type="submit" value="Alterar">
         </form>
@@ -47,7 +47,7 @@
 
                 <a href="#" class="list-group-item list-group-item-action flex-column align-items-start">
                     <div class="d-flex w-100 justify-content-between">
-                        <h5 class="mb-1">{{ coment.user.name }}|{{ coment.fk_meta.title }}</h5>
+                        <h5 class="mb-1">{{ coment.usuario.name }}|{{ coment.fk_meta.titulo }}</h5>
                         <small class="text-muted">{{ coment.created_at }}</small>
                     </div>
                     <h6>O que foi feito?</h6>
