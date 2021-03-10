@@ -130,12 +130,26 @@ def changeStatus(request, id):
 
     if meta.done == 'doing':
         meta.done = 'done'
+        meta.semaforo = 'verde'
+    else:
+        meta.done = 'doing'
+        meta.semaforo = 'azul'
+
+    meta.save()
+
+    return redirect('/comentario/' + str(meta.id) + '/100')
+
+def changeStatusS(request, id):
+    meta = get_object_or_404(Meta, pk=id)
+
+    if meta.done == 'doing':
+        meta.done = 'done'
     else:
         meta.done = 'doing'
 
     meta.save()
 
-    return redirect('/')
+    return redirect('/comentario/' + meta.id + '/100')
 
 def home(request):
 

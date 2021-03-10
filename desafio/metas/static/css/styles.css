@@ -139,6 +139,10 @@
     color: #3476e2;
 }
 
+.cor-check .fas.fa-check{
+    color: #3476e2;
+}
+
 .fas.fa-trash, .fas.fa-edit, .fas.fa-check{
     cursor: pointer;
     margin: 5px;

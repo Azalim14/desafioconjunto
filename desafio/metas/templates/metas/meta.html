@@ -4,7 +4,7 @@
 {% block title %}Lista Metas{% endblock %}
 
 {% block content %}
-    <div class="offset-1 col-10 meta-view">
+    <div class="offset-1 col-10 meta-view cor-check">
         <h1>{{ meta.titulo }}</h1>
         <p>{{ meta.descricao }}</p>
         <h4>Responsável: {{ meta.responsavel }}</h4>
@@ -12,9 +12,23 @@
         <h6>Data para entrega: {{ meta.entrega }}</h6>
         <h6>Criada em: {{ meta.created_at }}</h6>
         <div class="progress">
-            <div class="progress-bar progress-bar-striped bg-success progress-bar-animated" style="width: {{ meta.porcentagem }}%;" role="progressbar" aria-valuenow="{{ meta.porcentagem }}" aria-valuemin="0" aria-valuemax="100" style="width: 75%">
-                {{ meta.porcentagem }}%
-            </div>
+            {% if meta.semaforo == 'verde' %}
+                <div class="progress-bar progress-bar-striped bg-success progress-bar-animated" style="width: {{ meta.porcentagem }}%;" role="progressbar" aria-valuenow="{{ meta.porcentagem }}" aria-valuemin="0" aria-valuemax="100">
+                    {{ meta.porcentagem }}%
+                </div>
+            {% elif meta.semaforo == 'vermelho' %}  
+                <div class="progress-bar progress-bar-striped bg-danger progress-bar-animated" style="width: {{ meta.porcentagem }}%;" role="progressbar" aria-valuenow="{{ meta.porcentagem }}" aria-valuemin="0" aria-valuemax="100">
+                    {{ meta.porcentagem }}%
+                </div>
+            {% elif meta.semaforo == 'amarelo' %}
+                <div class="progress-bar progress-bar-striped bg-warning progress-bar-animated" style="width: {{ meta.porcentagem }}%;" role="progressbar" aria-valuenow="{{ meta.porcentagem }}" aria-valuemin="0" aria-valuemax="100">
+                    {{ meta.porcentagem }}%
+                </div>
+            {% elif meta.semaforo == 'azul' %}
+                <div class="progress-bar progress-bar-striped bg-info progress-bar-animated" style="width: {{ meta.porcentagem }}%;" role="progressbar" aria-valuenow="{{ meta.porcentagem }}" aria-valuemin="0" aria-valuemax="100">
+                    {{ meta.porcentagem }}%
+                </div>
+            {% endif %}
         </div>
         <form method="POST" id="formulario-porcentagem">
             {% csrf_token %}
