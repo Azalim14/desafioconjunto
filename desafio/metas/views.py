@@ -25,11 +25,31 @@ def listaMeta(request):
 
         lista_metas = Meta.objects.filter(deletado=False).order_by('-created_at')
 
+        for meta in lista_metas:
+            entrega = meta.entrega
+            criada = meta.created_at
+            hoje = datetime.date.today()
+            dias_total = abs((entrega - criada).days)
+            dias = abs((entrega - hoje).days)
+
+            if meta.done == 'doing':
+                if dias <= (dias_total * 0.1):
+                    meta.semaforo = 'vermelho'
+                    meta.save()
+                elif dias > (dias_total * 0.1) and dias <= (dias_total * 0.4):
+                    meta.semaforo = 'amarelo'
+                    meta.save()
+                else:
+                    meta.semaforo = 'azul'
+                    meta.save()
+
         paginator = Paginator(lista_metas, 3)
 
         page = request.GET.get('page')
 
         metas = paginator.get_page(page)
+
+
 
     data = {
         'metas': metas,
@@ -52,7 +72,7 @@ def novaMeta(request):
             meta.done = 'doing'
             meta.deletado = False
             meta.porcentagem = 0
-            meta.semaforo = 'verde'
+            meta.semaforo = 'azul'
             meta.save()
             return redirect('/')
     else:
@@ -69,7 +89,7 @@ def novaMetaSetor(request, setorP):
             meta.deletado = False
             meta.porcentagem = 0
             meta.setor = setor
-            meta.semaforo = 'verde'
+            meta.semaforo = 'azul'
             meta.save()
             return redirect('/' + setor.ident)
     else:
@@ -144,12 +164,14 @@ def changeStatusS(request, id):
 
     if meta.done == 'doing':
         meta.done = 'done'
+        meta.semaforo = 'verde'
     else:
         meta.done = 'doing'
+        meta.semaforo = 'azul'
 
     meta.save()
 
-    return redirect('/comentario/' + meta.id + '/100')
+    return redirect('/comentario/' + str(meta.id) + '/100')
 
 def home(request):
 
