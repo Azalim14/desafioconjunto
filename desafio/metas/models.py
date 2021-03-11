@@ -50,9 +50,9 @@ class Meta(models.Model):
 class Comentario(models.Model):
     fk_meta = models.ForeignKey(Meta, on_delete = models.CASCADE)
     usuario = models.ForeignKey(Membro, on_delete=models.CASCADE)
-    oquefoifeito = models.CharField(max_length = 255)
-    oquevaiserfeito = models.CharField(max_length = 255, blank = True)
-    impedimento = models.CharField(max_length = 255, blank = True)
+    oquefoifeito = models.TextField(max_length = 255)
+    oquevaiserfeito = models.TextField(max_length = 255, blank = True)
+    impedimento = models.TextField(max_length = 255, blank = True)
     created_at = models.DateTimeField(auto_now_add=True)
 
     def __str__(self):
