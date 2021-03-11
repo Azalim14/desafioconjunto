@@ -4,85 +4,49 @@
 
 {% block content %}
     <div class="container home">
-        <h1>Home</h1>
+        <h1>Nome Legal</h1>
 
         <div class="row cards-div">
+            
+            {% for setor in setores %}
 
-            <div class="col-md-4">
-                <div class="card text-white bg-info mb-3">
-                    <div class="card-header">Eventos</div>
-                    <div class="card-body">
-                    <p class="card-text">{{ metasrecently }}</p>
+                <div class="col-md-6 home-card">
+                    <div class="card">
+                        <div class="card-header" style="background-color: #006635;"><a href="{% url 'lista-setor' setor.ident %}">{{ setor.name }}</a></div>
+                        <div class="card-body">
+                            <ul class="list-group list-group-flush">
+                                {% for meta in metas %}
+                                    {% if meta.setor == setor %}
+                                        <li class="list-group-item">
+                                            <a href="{% url 'meta-view' meta.id %}" class="meta-title">{{ meta.titulo }}</a>
+                                            <div class="progress">
+                                                {% if meta.semaforo == 'verde' %}
+                                                    <div class="progress-bar progress-bar-striped bg-success progress-bar-animated" style="width: {{ meta.porcentagem }}%;" role="progressbar" aria-valuenow="{{ meta.porcentagem }}" aria-valuemin="0" aria-valuemax="100">
+                                                        {{ meta.porcentagem }}%
+                                                    </div>
+                                                {% elif meta.semaforo == 'vermelho' %}  
+                                                    <div class="progress-bar progress-bar-striped bg-danger progress-bar-animated" style="width: {{ meta.porcentagem }}%;" role="progressbar" aria-valuenow="{{ meta.porcentagem }}" aria-valuemin="0" aria-valuemax="100">
+                                                        {{ meta.porcentagem }}%
+                                                    </div>
+                                                {% elif meta.semaforo == 'amarelo' %}
+                                                    <div class="progress-bar progress-bar-striped bg-warning progress-bar-animated" style="width: {{ meta.porcentagem }}%;" role="progressbar" aria-valuenow="{{ meta.porcentagem }}" aria-valuemin="0" aria-valuemax="100">
+                                                        {{ meta.porcentagem }}%
+                                                    </div>
+                                                {% elif meta.semaforo == 'azul' %}
+                                                    <div class="progress-bar progress-bar-striped bg-info progress-bar-animated" style="width: {{ meta.porcentagem }}%;" role="progressbar" aria-valuenow="{{ meta.porcentagem }}" aria-valuemin="0" aria-valuemax="100">
+                                                        {{ meta.porcentagem }}%
+                                                    </div>
+                                                {% endif %}
+                                            </div>
+                                        </li>
+                                    {% endif %}
+                                {% endfor %}
+                            </ul>
+                        </div>
                     </div>
                 </div>
-            </div>
 
-            <div class="col-md-4">
-                <div class="card text-white bg-warning mb-3">
-                    <div class="card-header">Comunicação</div>
-                    <div class="card-body">
-                    <p class="card-text">{{ metasrecently }}</p>
-                    </div>
-                </div>
-            </div>
-
-            <div class="col-md-4">
-                <div class="card">
-                    <div class="card-header">Comunicação</div>
-                    <div class="card-body">
-                        <ul class="list-group list-group-flush">
-                            {% for meta in metas %}
-                                <li class="list-group-item">{{ meta.title }}</li>
-                            {% endfor %}
-                        </ul>
-                    </div>
-                </div>
-            </div>
-
-            <div class="col-md-4">
-                <div class="card text-white bg-primary mb-3">
-                    <div class="card-header">Eventos</div>
-                    <div class="card-body">
-                    <p class="card-text">{{ metasrecently }}</p>
-                    </div>
-                </div>
-            </div>
-
-            <div class="col-md-4">
-                <div class="card text-white bg-dark mb-3">
-                    <div class="card-header">Transformação</div>
-                    <div class="card-body">
-                    <p class="card-text">{{ metasrecently }}</p>
-                    </div>
-                </div>
-            </div>
-
-            <div class="col-md-4">
-                <div class="card text-white bg-success mb-3">
-                    <div class="card-header">Financeiro</div>
-                    <div class="card-body">
-                    <p class="card-text">{{ metasrecently }}</p>
-                    </div>
-                </div>
-            </div>
-
-            <div class="col-md-4">
-                <div class="card text-white bg-danger mb-3">
-                    <div class="card-header">Conteúdo</div>
-                    <div class="card-body">
-                    <p class="card-text">{{ metasrecently }}</p>
-                    </div>
-                </div>
-            </div>
-
-            <div class="col-md-4">
-                <div class="card text-white bg-secondary mb-3">
-                    <div class="card-header">Economia circular</div>
-                    <div class="card-body">
-                    <p class="card-text">{{ metasrecently }}</p>
-                    </div>
-                </div>
-            </div>
+            {% endfor %}
 
         </div>
 

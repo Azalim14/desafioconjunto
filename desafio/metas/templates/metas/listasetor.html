@@ -4,9 +4,9 @@
 
 {% block content %}
     <div class="offset-1 col-10 list-div">
-        <h1>Lista de Metas</h1>
+        <h1>Lista de Metas {{ setor.name }}</h1>
         <a id="#add-link{
-            " href="novameta/">
+            " href="novameta/{{ setor.ident }}">
             <div class="col-2 add-div">
                 <i class="fa fa-plus"></i> Adicionar Meta
             </div>
@@ -18,9 +18,11 @@
             </form>
         </div>
 
+        <input type="hidden" name="urlSetor" id="url-setor" value="/{{ setor.ident }}">
+
         <div class="col-12 filter-div">
             <span>Filtrar por:</span>
-            <select name="filter" id="filter" class="form-control">
+            <select name="filter" id="filterS" class="form-control">
                 <option value="">Escolha uma opção</option>
                 <option value="done">Metas atingidas</option>
                 <option value="doing">Metas a atingir</option>
@@ -43,6 +45,7 @@
                             <div class="d-flex w-100 justify-content-between">
                                 <h5 class="mb-1">Título: {{ meta.titulo }} | Responsável: {{ meta.responsavel }}</h5>
                                 <small class="text-muted">{{ meta.entrega }}</small>
+                                
                             </div>
                             <div class="progress">
                                 {% if meta.semaforo == 'verde' %}
@@ -67,7 +70,7 @@
                             <small class="text-muted">{{ meta.created_at }}</small>
                             <a href="delete/{{ meta.id }}" class="delete-btn"><span><i class="fas fa-trash"></i></span></a>
                             <a href="edit/{{ meta.id }}"><span><i class="fas fa-edit"></i></span></a>
-                            <a href="changestatus/{{ meta.id }}"><span><i class="fas fa-check"></i></span></a>
+                            <a href="changestatusS/{{ meta.id }}"><span><i class="fas fa-check"></i></span></a>
                         </div>
                     </a>
                 </div>

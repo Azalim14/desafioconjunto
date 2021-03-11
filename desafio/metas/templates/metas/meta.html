@@ -4,11 +4,44 @@
 {% block title %}Lista Metas{% endblock %}
 
 {% block content %}
-    <div class="offset-1 col-10 list-div">
-        <h1>{{ meta.title }}</h1>
-        <p>{{ meta.description }}</p>
+    <div class="offset-1 col-10 meta-view cor-check">
+        <h1>{{ meta.titulo }}</h1>
+        <p>{{ meta.descricao }}</p>
+        <h4>Responsável: {{ meta.responsavel }}</h4>
+        <p>Membros: {{ meta.membros }}</p>
+        <h6>Data para entrega: {{ meta.entrega }}</h6>
+        <h6>Criada em: {{ meta.created_at }}</h6>
+        <div class="progress">
+            {% if meta.semaforo == 'verde' %}
+                <div class="progress-bar progress-bar-striped bg-success progress-bar-animated" style="width: {{ meta.porcentagem }}%;" role="progressbar" aria-valuenow="{{ meta.porcentagem }}" aria-valuemin="0" aria-valuemax="100">
+                    {{ meta.porcentagem }}%
+                </div>
+            {% elif meta.semaforo == 'vermelho' %}  
+                <div class="progress-bar progress-bar-striped bg-danger progress-bar-animated" style="width: {{ meta.porcentagem }}%;" role="progressbar" aria-valuenow="{{ meta.porcentagem }}" aria-valuemin="0" aria-valuemax="100">
+                    {{ meta.porcentagem }}%
+                </div>
+            {% elif meta.semaforo == 'amarelo' %}
+                <div class="progress-bar progress-bar-striped bg-warning progress-bar-animated" style="width: {{ meta.porcentagem }}%;" role="progressbar" aria-valuenow="{{ meta.porcentagem }}" aria-valuemin="0" aria-valuemax="100">
+                    {{ meta.porcentagem }}%
+                </div>
+            {% elif meta.semaforo == 'azul' %}
+                <div class="progress-bar progress-bar-striped bg-info progress-bar-animated" style="width: {{ meta.porcentagem }}%;" role="progressbar" aria-valuenow="{{ meta.porcentagem }}" aria-valuemin="0" aria-valuemax="100">
+                    {{ meta.porcentagem }}%
+                </div>
+            {% endif %}
+        </div>
+        <form method="POST" id="formulario-porcentagem">
+            {% csrf_token %}
+            <label for="porcentagem">Percentual de Conclusão</label>
+            <input type="number" name="porcentagem" id="input-porcentagem" max="100" min="0" maxlength="3" placeholder="{{ meta.porcentagem }}">
+            <input type="submit" value="Alterar">
+        </form>
+        <a href="{% url 'delete-meta' meta.id %}" class="delete-btn"><span><i class="fas fa-trash"></i></span></a>
+        <a href="{% url 'edit-meta' meta.id %}"><span><i class="fas fa-edit"></i></span></a>
+        <a href="{% url 'change-status' meta.id %}"><span><i class="fas fa-check"></i></span></a>
     </div>
 
+<<<<<<< HEAD
 <<<<<<< HEAD
 =======
     <a id="#add-link" href="/comentario/{{ meta.id }}">
@@ -16,15 +49,19 @@
             <i class="fa fa-plus"></i> Adicionar Comentário
         </div>
     </a>
+=======
+    
+>>>>>>> 90700494d00f8a31915420e4fc4adc91e3dbfc57
+
+    <div class="add-comentario">
+        <a id="#add-link" href="/comentario/{{ meta.id }}">
+            <div class="col-2 add-div">
+                <i class="fa fa-plus"></i> Adicionar Comentário
+            </div>
+        </a>
+    </div>
 
     <input type="hidden" name="idmeta" id="id-meta" value="{{ meta.id }}">
-
-    <form method="POST" id="formulario-porcentagem">
-        {% csrf_token %}
-        <label for="porcentagem">Alterar a porcentagem</label>
-        <input type="number" name="porcentagem" id="input-porcentagem" max="100" min="0" maxlength="3" placeholder="{{ meta.porcentagem }}">
-        <input type="submit" value="Alterar">
-    </form>
 
 >>>>>>> 08a3bf94c59ede2b2a34a89367068f3f1bc43a5e
     <div class="col-10 coments-list-div">
@@ -35,9 +72,28 @@
         </a>
 
         <div class="row">
+            <div class="list-group col-10 coment-list">
             {% for coment in comentarios %}
-        
-                <div class="col-md-4">
+
+                <a href="#" class="list-group-item list-group-item-action flex-column align-items-start">
+                    <div class="d-flex w-100 justify-content-between">
+                        <h5 class="mb-1">{{ coment.usuario.name }}|{{ coment.fk_meta.titulo }}</h5>
+                        <small class="text-muted">{{ coment.created_at }}</small>
+                    </div>
+                    <h6>O que foi feito?</h6>
+                    <p class="mb-1">{{ coment.oquefoifeito }}</p>
+                    {% if coment.oquevaiserfeito|length > 0 %}
+                        <h6>O que vai ser feito?</h6>
+                        <p class="mb-1">{{ coment.oquevaiserfeito }}</p>
+                    {% endif %}
+                    {% if coment.impedimento|length > 0 %}
+                        <h6>Impedimento</h6>
+                        <p class="mb-1">{{ coment.impedimento }}</p>
+                    {% endif %}
+                </a>
+
+                <!--
+                    <div class="col-md-4">
                     <div class="card text-white bg-secondary mb-3">
                         <div class="card-header">{{ coment.user.name }}|{{ coment.fk_meta.title }}</div>
                         <div class="card-body">
@@ -54,8 +110,10 @@
                         </div>
                     </div>
                 </div>
+                -->
                 
             {% endfor %}
+            </div>
         </div>
         
     </div>

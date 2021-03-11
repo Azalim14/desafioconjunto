@@ -22,7 +22,8 @@
 }
 
 .navbar-light .navbar-nav a.nav-link{
-    color: #333;
+    text-decoration: none;
+    color: #ccc;
     letter-spacing: 1px;
 }
 
@@ -34,7 +35,7 @@
 }
 
 .add-div{
-    background-color: #3476e2;
+    background-color: #006635;
     cursor: pointer;
     display: inline-block;
     color: #FFF;
@@ -112,18 +113,6 @@
     margin-right: 1.5%;
 }
 
-#dashboard-lastdays{
-    background-color: #3476e2;
-}
-
-#dashboard-doing{
-    background-color: #db1e47;
-}
-
-#dashboard-done{
-    background-color: #13c43f;
-}
-
 /* Lista de Metas */
 
 .list-div{
@@ -135,12 +124,7 @@
 }
 
 .task-item{
-    list-style: none;
-    font-size: 20px;
-    height: 50px;
-    padding: 0 15px;
     padding-top: 10px;
-    border-bottom: 1px dashed #ccc;
 }
 
 .task-item.done{
@@ -152,6 +136,10 @@
 }
 
 .done .fas.fa-check{
+    color: #3476e2;
+}
+
+.cor-check .fas.fa-check{
     color: #3476e2;
 }
 
@@ -170,20 +158,47 @@
     color: #db1e47;
 }
 
+.link-meta:link{
+    text-decoration: none;
+    color: black;
+}
+
+.link-meta:visited{
+    text-decoration: none;
+    color: black;
+}
+
+.link-meta{
+    text-decoration: none;
+    color: black;
+}
+
 /* Rodapé */
 
 footer{
     background-color: #333;
-    height: 160px;
+    height: 200px;
     border-top: 2px solid #202020;
+}
+
+
+footer .titulo{
+    color: #f5f5f5;
+    text-align: center;
+    top: 10%;
+    position: relative;
 }
 
 footer p{
     color: #f5f5f5;
-    text-align: center;
-    top: 50%;
-    position: relative;
 }
+
+footer .estagiarios{
+    padding-left: 30px;
+    color: #f5f5f5;
+}
+
+
 
 /* Pagination */
 
@@ -245,4 +260,82 @@ footer p{
 .cards-div .card .card-text{
     text-align: center;
     font-size: larger;
+}
+
+.home-card .card-body{
+    border-style: solid;
+    border-color: #006635;
+    border-top: none;
+}
+
+.card-header a:link{
+    color: #fff;
+}
+
+.card-header a:visited{
+    color: #fff;
+}
+
+.meta-title:link{
+    color: #202020;
+}
+
+.meta-title:visited{
+    color: #202020;
+}
+
+/* comentários */
+
+.coment-list{
+    margin-left: auto;
+    overflow: auto;
+    height: 400px;
+    padding: 30px;
+}
+
+.add-comentario{
+    padding-left: 20px;
+    padding-top: 20px;
+}
+
+/* sobre a plataforma */
+
+.sobre{
+    padding-top: 20px;
+    padding-bottom: 10px;
+}
+
+.lista-fazer{
+    padding-top: 10px;
+    padding-bottom: 10px;
+}
+
+.mais-sobre{
+    padding-top: 10px;
+    padding-bottom: 10px;
+}
+
+.proximas{
+    padding-top: 10px;
+    padding-bottom: 20px;
+}
+
+
+
+.sobre-a-plataforma{
+    padding: 0;
+}
+
+.estagiarios li{
+    list-style-type: none;
+}
+
+/* visualização da meta */
+
+.meta-view{
+    padding: 0;
+}
+
+#formulario-porcentagem{
+    padding-top: 10px;
 }

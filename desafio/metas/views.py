@@ -15,17 +15,17 @@ def listaMeta(request):
 
     if search:
 
-        metas = Meta.objects.filter(title__icontains=search)
+        metas = Meta.objects.filter(title__icontains=search, deletado=False)
 
     elif filter:
 
-        metas = Meta.objects.filter(done=filter)
+        metas = Meta.objects.filter(done=filter, deletado=False)
 
     else:
 
-        lista_metas = Meta.objects.all().order_by('-created_at')
+        lista_metas = Meta.objects.filter(deletado=False).order_by('-created_at')
 
-        paginator = Paginator(lista_metas, 5)
+        paginator = Paginator(lista_metas, 3)
 
         page = request.GET.get('page')
 
@@ -52,11 +52,30 @@ def novaMeta(request):
             meta.done = 'doing'
             meta.deletado = False
             meta.porcentagem = 0
+            meta.semaforo = 'verde'
             meta.save()
             return redirect('/')
     else:
         form = NovaMetaForm()
         return render(request, 'metas/novameta.html', {'form': form})
+
+def novaMetaSetor(request, setorP):
+    if request.method == 'POST':
+        setor = get_object_or_404(Setor, ident=setorP)
+        form = NovaMetaSetorForm(request.POST)
+        if form.is_valid():
+            meta = form.save(commit=False)
+            meta.done = 'doing'
+            meta.deletado = False
+            meta.porcentagem = 0
+            meta.setor = setor
+            meta.semaforo = 'verde'
+            meta.save()
+            return redirect('/' + setor.ident)
+    else:
+        setor = get_object_or_404(Setor, ident=setorP)
+        form = NovaMetaSetorForm()
+        return render(request, 'metas/novameta.html', {'form': form, 'setor': setor.name})
 
 def novoComentario(request, id):
     meta = get_object_or_404(Meta, pk=id)
@@ -76,7 +95,7 @@ def novoComentario(request, id):
 
 def editMeta(request, id):
     meta = get_object_or_404(Meta, pk=id)
-    form = NovaMetaForm()
+    form = NovaMetaForm(instance=meta)
 
     if request.method == 'POST':
         form = NovaMetaForm(request.POST, instance=meta)
@@ -94,6 +113,12 @@ def deleteMeta(request, id):
     meta.save()
     return redirect('/')
 
+@login_required
+def deletaMesmo(request, id):
+    meta = get_object_or_404(Meta, pk=id)
+    meta.delete()
+    return redirect('/deletadas/')
+
 def activateMeta(request, id):
     meta = get_object_or_404(Meta, pk=id)
     meta.deletado = False
@@ -105,21 +130,38 @@ def changeStatus(request, id):
 
     if meta.done == 'doing':
         meta.done = 'done'
+        meta.semaforo = 'verde'
+    else:
+        meta.done = 'doing'
+        meta.semaforo = 'azul'
+
+    meta.save()
+
+    return redirect('/comentario/' + str(meta.id) + '/100')
+
+def changeStatusS(request, id):
+    meta = get_object_or_404(Meta, pk=id)
+
+    if meta.done == 'doing':
+        meta.done = 'done'
     else:
         meta.done = 'doing'
 
     meta.save()
 
-    return redirect('/')
+    return redirect('/comentario/' + meta.id + '/100')
 
 def home(request):
 
+    setores = Setor.objects.all().order_by('name')
     metasDoneRecently = Meta.objects.filter(done='done', updated_at__gt=datetime.datetime.now()-datetime.timedelta(days=30)).count()
-    lista_metas = Meta.objects.all().order_by('-created_at')[:3]
+    lista_metas = Meta.objects.filter(deletado=False).order_by('-created_at')
 
     data = {
         'metasrecently': metasDoneRecently,
         'metas' : lista_metas,
+        'setores' : setores,
+        'data' : datetime.date.today(),
     }
 
     return render(request, 'metas/home.html', data)
@@ -141,7 +183,8 @@ def alterandoPorcentagem(request, id, porcentagem):
             return render(request, 'metas/novocomentario.html', {'form': form})
     else:
         return render(request, 'metas/novocomentario.html', {'form': form})
-
+        
+@login_required
 def listaDeletadas(request):
 
     search = request.GET.get('search')
@@ -170,3 +213,37 @@ def listaDeletadas(request):
     }
 
     return render(request, 'metas/listaDeletadas.html', data)
+
+def listaSetor(request, setorLista):
+
+    setorFiltro = get_object_or_404(Setor, ident=setorLista)
+    search = request.GET.get('search')
+    filter = request.GET.get('filter')
+
+    if search:
+
+        metas = Meta.objects.filter(title__icontains=search, setor=setorFiltro)
+
+    elif filter:
+
+        metas = Meta.objects.filter(setor=setorFiltro, done=filter)
+
+    else:
+
+        lista_metas = Meta.objects.filter(setor=setorFiltro, deletado=False).order_by('-created_at')
+
+        paginator = Paginator(lista_metas, 3)
+
+        page = request.GET.get('page')
+
+        metas = paginator.get_page(page)
+
+    data = {
+        'metas': metas,
+        'setor': setorFiltro,
+    }
+
+    return render(request, 'metas/listasetor.html', data)
+
+def sobre(request):
+    return render(request, 'metas/sobre.html')

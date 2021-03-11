@@ -24,16 +24,27 @@
         <ul class="tasks-list">
             {% for meta in metas %}
                 {% if meta.deletado == True %}
-                    {% if meta.done == 'doing' %}
-                        <li class="task-item">
-                    {% else %}
-                        <li class="task-item done">  
-                    {% endif %}
-                            <span><a href="/meta/{{ meta.id }}">{{ meta.title }} | {{ meta.description }} | {{ meta.responsavel }}</a></span>
-                            <a href="activate/{{ meta.id }}" class="activate-btn"><span><i class="fas fa-check"></i></span></a>
-                            <a href="edit/{{ meta.id }}"><span><i class="fas fa-edit"></i></span></a>
-                            <a href="changestatus/{{ meta.id }}"><span><i class="fas fa-check"></i></span></a>
-                        </li>
+                    <div class="list-group tasks-list">
+                        {% if meta.done == 'doing' %}
+                            <div class="list-group-item list-group-item-action flex-column align-items-start task-item">
+                        {% else %}
+                            <div class="list-group-item list-group-item-action flex-column align-items-start task-item done">
+                        {% endif %}
+                                <div class="d-flex w-100 justify-content-between">
+                                    
+                                    <h5 class="mb-1">{{ meta.titulo }} | {{ meta.responsavel }}</h5>
+                                    </a>
+                                    <h6 class="mb-1">{{ meta.porcentagem }}%</h6>
+                                    <small class="text-muted">{{ meta.entrega }}</small>
+                                    
+                                </div>
+                                <p class="mb-1">{{ meta.descricao }}</p>
+                                <small class="text-muted">{{ meta.created_at }}</small>
+                                <a href="activate/{{ meta.id }}"><span><i class="fas fa-check"></i></span></a>
+                                <a href="{% url 'deleta-mesmo' meta.id %}" class="delete-btn"><span><i class="fas fa-trash"></i></span></a>
+                            </div>
+                        
+                    </div>
                 {% endif %}
             {% endfor %}
         </ul>

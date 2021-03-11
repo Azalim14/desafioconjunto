@@ -7,7 +7,15 @@ class DateInput(forms.DateInput):
 class NovaMetaForm(forms.ModelForm):
     class Meta:
         model = Meta
-        fields = ('title', 'description', 'setor', 'responsavel', 'membros', 'entrega')
+        fields = ('titulo', 'descricao', 'setor', 'responsavel', 'membros', 'entrega')
+        widgets = {
+            'entrega': DateInput(attrs={'type': 'date'})
+        }
+
+class NovaMetaSetorForm(forms.ModelForm):
+    class Meta:
+        model = Meta
+        fields = ('titulo', 'descricao', 'responsavel', 'membros', 'entrega')
         widgets = {
             'entrega': DateInput(attrs={'type': 'date'})
         }
@@ -15,7 +23,7 @@ class NovaMetaForm(forms.ModelForm):
 class NovoComentarioForm(forms.ModelForm):
     class Meta:
         model = Comentario
-        fields = ('user', 'oquefoifeito', 'oquevaiserfeito', 'impedimento')
+        fields = ('usuario', 'oquefoifeito', 'oquevaiserfeito', 'impedimento')
 
 class AlterandoPorcentagemForm(forms.ModelForm):
     class Meta:
