@@ -9,6 +9,24 @@
         <p>{{ meta.description }}</p>
     </div>
 
+<<<<<<< HEAD
+=======
+    <a id="#add-link" href="/comentario/{{ meta.id }}">
+        <div class="col-2 add-div">
+            <i class="fa fa-plus"></i> Adicionar Comentário
+        </div>
+    </a>
+
+    <input type="hidden" name="idmeta" id="id-meta" value="{{ meta.id }}">
+
+    <form method="POST" id="formulario-porcentagem">
+        {% csrf_token %}
+        <label for="porcentagem">Alterar a porcentagem</label>
+        <input type="number" name="porcentagem" id="input-porcentagem" max="100" min="0" maxlength="3" placeholder="{{ meta.porcentagem }}">
+        <input type="submit" value="Alterar">
+    </form>
+
+>>>>>>> 08a3bf94c59ede2b2a34a89367068f3f1bc43a5e
     <div class="col-10 coments-list-div">
         <a id="#add-coment-link" href="/comentario/{{ meta.id }}">
             <div class="col-2 add-div">
@@ -21,9 +39,18 @@
         
                 <div class="col-md-4">
                     <div class="card text-white bg-secondary mb-3">
-                        <div class="card-header">{{ coment.user.username }}|{{ coment.fk_meta.title }}</div>
+                        <div class="card-header">{{ coment.user.name }}|{{ coment.fk_meta.title }}</div>
                         <div class="card-body">
-                        <p class="card-text">{{ coment.content }}</p>
+                            <h6>O que foi feito?</h6>
+                            <p class="card-text">{{ coment.oquefoifeito }}</p>
+                            {% if coment.oquevaiserfeito|length > 0 %}
+                                <h6>O que vai ser feito?</h6>
+                                <p class="card-text">{{ coment.oquevaiserfeito }}</p>
+                            {% endif %}
+                            {% if coment.impedimento|length > 0 %}
+                                <h6>Impedimento</h6>
+                                <p class="card-text">{{ coment.impedimento }}</p>
+                            {% endif %}
                         </div>
                     </div>
                 </div>

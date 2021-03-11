@@ -9,7 +9,11 @@ urlpatterns = [
     path('edit/<int:id>', views.editMeta, name="edit-meta"),
     path('changestatus/<int:id>', views.changeStatus, name="change-status"),
     path('delete/<int:id>', views.deleteMeta, name="delete-meta"),
+    path('deletadas/activate/<int:id>', views.activateMeta, name="activate-meta"),
     path('comentario/<int:id>', views.novoComentario, name="novo-comentario"),
+    path('comentario/<int:id>/<int:porcentagem>', views.alterandoPorcentagem, name="alterando-porcentagem"),
+    path('deletadas/', views.listaDeletadas, name="lista-deletadas"),
+
 
 
 ]
