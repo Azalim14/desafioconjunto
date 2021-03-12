@@ -21,7 +21,7 @@
     font-weight: bold;
 }
 
-.navbar-light .navbar-nav a.nav-link{
+.navbar-light .navbar-nav a.nav-link:link{
     text-decoration: none;
     color: #ccc;
     letter-spacing: 1px;
@@ -268,6 +268,10 @@ footer .estagiarios{
     border-top: none;
 }
 
+.home-card .card-header{
+    font-size: large;
+}
+
 .card-header a:link{
     color: #fff;
 }
@@ -306,7 +310,14 @@ footer .estagiarios{
       padding-top: 10px;
 }
 
+.dados{
+    padding-left: 50px;
+    padding-top: 25px;
+}
 
+.dados .card{
+    margin-right: 10px;
+}
 
 /* comentários */
 

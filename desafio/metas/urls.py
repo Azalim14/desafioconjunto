@@ -16,6 +16,7 @@ urlpatterns = [
     path('comentario/<int:id>/<int:porcentagem>', views.alterandoPorcentagem, name="alterando-porcentagem"),
     path('deletadas/', views.listaDeletadas, name="lista-deletadas"),
     path('<str:setorLista>', views.listaSetor, name="lista-setor"),
+    path('metas/<str:cor>', views.listaCor, name="lista-cor"),
     path('sobre/', views.sobre, name="sobre"),
     path('deletamesmo/<int:id>', views.deletaMesmo, name="deleta-mesmo"),
 

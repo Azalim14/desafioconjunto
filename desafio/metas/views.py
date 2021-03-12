@@ -176,14 +176,24 @@ def changeStatusS(request, id):
 def home(request):
 
     setores = Setor.objects.all().order_by('name')
-    metasDoneRecently = Meta.objects.filter(done='done', updated_at__gt=datetime.datetime.now()-datetime.timedelta(days=30)).count()
     lista_metas = Meta.objects.filter(deletado=False).order_by('-created_at')
+    concluidas = len(Meta.objects.filter(done='done'))
+    em_progresso = len(Meta.objects.filter(semaforo='azul'))
+    atrasadas = len(Meta.objects.filter(semaforo='vermelho'))
+    atencao = len(Meta.objects.filter(semaforo='amarelo'))
+    porcentagem = concluidas/len(lista_metas)*100
+    
 
     data = {
-        'metasrecently': metasDoneRecently,
-        'metas' : lista_metas,
-        'setores' : setores,
-        'data' : datetime.date.today(),
+        'total_metas': len(lista_metas),
+        'metas': lista_metas,
+        'setores': setores,
+        'data': datetime.date.today(),
+        'concluidas': concluidas,
+        'progresso': em_progresso,
+        'atrasadas': atrasadas,
+        'atencao': atencao,
+        'porcentagem': int(porcentagem),
     }
 
     return render(request, 'metas/home.html', data)
@@ -266,6 +276,36 @@ def listaSetor(request, setorLista):
     }
 
     return render(request, 'metas/listasetor.html', data)
+
+def listaCor(request, cor):
+
+    search = request.GET.get('search')
+    filter = request.GET.get('filter')
+
+    if search:
+
+        metas = Meta.objects.filter(title__icontains=search, semaforo=cor)
+
+    elif filter:
+
+        metas = Meta.objects.filter(semaforo=cor, done=filter)
+
+    else:
+
+        lista_metas = Meta.objects.filter(semaforo=cor, deletado=False).order_by('-created_at')
+
+        paginator = Paginator(lista_metas, 3)
+
+        page = request.GET.get('page')
+
+        metas = paginator.get_page(page)
+
+    data = {
+        'metas': metas,
+        'cor': cor,
+    }
+
+    return render(request, 'metas/listacor.html', data)
 
 def sobre(request):
     return render(request, 'metas/sobre.html')

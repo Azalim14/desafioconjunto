@@ -7,6 +7,7 @@ $(document).ready(function() {
     var filter = $('#filter');
     var filterS = $('#filterS');
     var urlSetor = $('#url-setor').val();
+    var urlCor = $('#url-cor').val();
 
     $(deleteBtn).on('click', function(e) {
         e.preventDefault();
