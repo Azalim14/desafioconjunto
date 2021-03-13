@@ -280,6 +280,14 @@ footer .estagiarios{
     color: #fff;
 }
 
+.dados-title:link{
+    color: #202020;
+}
+
+.dados-title:visited{
+    color: #202020;
+}
+
 .meta-title:link{
     color: #202020;
 }
@@ -311,12 +319,7 @@ footer .estagiarios{
 }
 
 .dados{
-    padding-left: 50px;
     padding-top: 25px;
-}
-
-.dados .card{
-    margin-right: 10px;
 }
 
 /* comentários */
