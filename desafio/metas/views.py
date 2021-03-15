@@ -33,7 +33,7 @@ def listaMeta(request):
             dias = abs((entrega - hoje).days)
 
             if meta.done == 'doing':
-                if dias <= (dias_total * 0.1):
+                if dias <= (dias_total * 0.1) or hoje > entrega:
                     meta.semaforo = 'vermelho'
                     meta.save()
                 elif dias > (dias_total * 0.1) and dias <= (dias_total * 0.4):
@@ -177,10 +177,10 @@ def home(request):
 
     setores = Setor.objects.all().order_by('name')
     lista_metas = Meta.objects.filter(deletado=False).order_by('-created_at')
-    concluidas = len(Meta.objects.filter(done='done'))
-    em_progresso = len(Meta.objects.filter(semaforo='azul'))
-    atrasadas = len(Meta.objects.filter(semaforo='vermelho'))
-    atencao = len(Meta.objects.filter(semaforo='amarelo'))
+    concluidas = len(Meta.objects.filter(done='done', deletado=False))
+    em_progresso = len(Meta.objects.filter(semaforo='azul', deletado=False))
+    atrasadas = len(Meta.objects.filter(semaforo='vermelho', deletado=False))
+    atencao = len(Meta.objects.filter(semaforo='amarelo', deletado=False))
     porcentagem = concluidas/len(lista_metas)*100
     
 
@@ -193,7 +193,8 @@ def home(request):
         'progresso': em_progresso,
         'atrasadas': atrasadas,
         'atencao': atencao,
-        'porcentagem': int(porcentagem),
+        'porcentagem': round(porcentagem,1),
+        'qs': lista_metas,
     }
 
     return render(request, 'metas/home.html', data)
