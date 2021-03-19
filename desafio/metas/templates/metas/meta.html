@@ -5,10 +5,15 @@
 
 {% block content %}
     <div class="offset-1 col-10 meta-view cor-check">
-        <h1>{{ meta.titulo }}</h1>
+        <h1 class="h2-comentarios">{{ meta.titulo }}</h1>
+        <a href="{% url 'delete-meta' meta.id %}" class="delete-btn"><span><i class="fas fa-trash"></i></span></a>
+        <a href="{% url 'edit-meta' meta.id %}"><span><i class="fas fa-edit"></i></span></a>
+        <a href="{% url 'change-status' meta.id %}" class="changestatus-btn"><span><i class="fas fa-check"></i></span></a>
         <p>{{ meta.descricao }}</p>
         <h4>Responsável: {{ meta.responsavel }}</h4>
-        <p>Membros: {{ meta.membros }}</p>
+        {% if meta.membros %}
+            <p>Membros: {{ meta.membros }}</p>
+        {% endif %}
         <h6>Data para entrega: {{ meta.entrega }}</h6>
         <h6>Criada em: {{ meta.created_at }}</h6>
         <div class="progress">
@@ -36,19 +41,27 @@
             <input type="number" name="porcentagem" id="input-porcentagem" max="100" min="0" maxlength="3" placeholder="{{ meta.porcentagem }}">
             <input type="submit" value="Alterar">
         </form>
-        <a href="{% url 'delete-meta' meta.id %}" class="delete-btn"><span><i class="fas fa-trash"></i></span></a>
-        <a href="{% url 'edit-meta' meta.id %}"><span><i class="fas fa-edit"></i></span></a>
-        <a href="{% url 'change-status' meta.id %}"><span><i class="fas fa-check"></i></span></a>
+
+        <div class="justify-between">
+            <h2 class="h2-comentarios">Comentários</h2>
+            <a id="#add-coment-link" class="add-coment-link" href="/comentario/{{ meta.id }}">
+                <div class="col-3 add-div add-coment">
+                    <i class="fa fa-plus"></i> Adicionar Comentário
+                </div>
+            </a>
+            <a id="#add-coment-link" onclick="location.href = document.referrer;">
+                <div class="col-1 add-div voltar">
+                    <i class="fa fa-plus"></i> Voltar
+                </div>
+            </a>
+        </div>
+
     </div>
 
     <input type="hidden" name="idmeta" id="id-meta" value="{{ meta.id }}">
 
+
     <div class="col-10 coments-list-div">
-        <a id="#add-coment-link" href="/comentario/{{ meta.id }}">
-            <div class="col-2 add-div">
-                <i class="fa fa-plus"></i> Adicionar Comentário
-            </div>
-        </a>
 
         <div class="row">
             <div class="list-group col-10 coment-list">

@@ -62,6 +62,23 @@ def metaView(request, id):
 
     comentarios = Comentario.objects.filter(fk_meta = meta).order_by('-created_at')
 
+    entrega = meta.entrega
+    criada = meta.created_at
+    hoje = datetime.date.today()
+    dias_total = abs((entrega - criada).days)
+    dias = abs((entrega - hoje).days)
+
+    if meta.done == 'doing':
+        if dias <= (dias_total * 0.1) or hoje > entrega:
+            meta.semaforo = 'vermelho'
+            meta.save()
+        elif dias > (dias_total * 0.1) and dias <= (dias_total * 0.4):
+            meta.semaforo = 'amarelo'
+            meta.save()
+        else:
+            meta.semaforo = 'azul'
+            meta.save()
+
     return render(request, 'metas/meta.html', {'meta': meta, 'comentarios': comentarios})
 
 def novaMeta(request):
@@ -151,13 +168,27 @@ def changeStatus(request, id):
     if meta.done == 'doing':
         meta.done = 'done'
         meta.semaforo = 'verde'
+        meta.save()
+        return redirect('/comentario/' + str(meta.id) + '/100')
     else:
         meta.done = 'doing'
         meta.semaforo = 'azul'
+        meta.save()
+        return redirect('/')
 
-    meta.save()
+def changeStatusCor(request, id):
+    meta = get_object_or_404(Meta, pk=id)
 
-    return redirect('/comentario/' + str(meta.id) + '/100')
+    if meta.done == 'doing':
+        meta.done = 'done'
+        meta.semaforo = 'verde'
+        meta.save()
+        return redirect('/comentario/' + str(meta.id) + '/100')
+    else:
+        meta.done = 'doing'
+        meta.semaforo = 'azul'
+        meta.save()
+        return redirect('/metas/' + str(meta.semaforo ))
 
 def changeStatusS(request, id):
     meta = get_object_or_404(Meta, pk=id)
@@ -165,13 +196,59 @@ def changeStatusS(request, id):
     if meta.done == 'doing':
         meta.done = 'done'
         meta.semaforo = 'verde'
+        meta.save()
+        return redirect('/comentario/' + str(meta.id) + '/100')
     else:
         meta.done = 'doing'
         meta.semaforo = 'azul'
+        meta.save()
+        return redirect('/' + str(meta.setor.ident))
 
-    meta.save()
+def changeStatusCSComentario(request, id, porcentagem):
+    meta = get_object_or_404(Meta, pk=id)
 
-    return redirect('/comentario/' + str(meta.id) + '/100')
+    if meta.done == 'doing':
+        meta.done = 'done'
+        meta.semaforo = 'verde'
+        meta.porcentagem = 100
+        meta.save()
+        return redirect('/' + str(meta.setor.ident))
+    else:
+        meta.done = 'doing'
+        meta.semaforo = 'azul'
+        meta.save()
+        return redirect('/' + str(meta.setor.ident))
+
+def changeStatusSSComentario(request, id, porcentagem):
+    meta = get_object_or_404(Meta, pk=id)
+
+    if meta.done == 'doing':
+        meta.done = 'done'
+        meta.semaforo = 'verde'
+        meta.porcentagem = 100
+        meta.save()
+        return redirect('/' + str(meta.setor.ident))
+    else:
+        meta.done = 'doing'
+        meta.semaforo = 'azul'
+        meta.save()
+        return redirect('/' + str(meta.setor.ident))
+
+def changeStatusSComentario(request, id, porcentagem):
+    meta = get_object_or_404(Meta, pk=id)
+
+    if meta.done == 'doing':
+        meta.done = 'done'
+        meta.semaforo = 'verde'
+        meta.porcentagem = 100
+        meta.save()
+        return redirect('/meta/' + str(meta.id))
+    else:
+        meta.done = 'doing'
+        meta.semaforo = 'azul'
+        meta.save()
+        return redirect('/meta/' + str(meta.id))
+    
 
 def home(request):
 
@@ -181,8 +258,28 @@ def home(request):
     em_progresso = len(Meta.objects.filter(semaforo='azul', deletado=False))
     atrasadas = len(Meta.objects.filter(semaforo='vermelho', deletado=False))
     atencao = len(Meta.objects.filter(semaforo='amarelo', deletado=False))
-    porcentagem = concluidas/len(lista_metas)*100
+    if len(lista_metas) != 0:
+        porcentagem = concluidas/len(lista_metas)*100
+    else:
+        porcentagem = 0
     
+    for meta in lista_metas:
+        entrega = meta.entrega
+        criada = meta.created_at
+        hoje = datetime.date.today()
+        dias_total = abs((entrega - criada).days)
+        dias = abs((entrega - hoje).days)
+
+        if meta.done == 'doing':
+            if dias <= (dias_total * 0.1) or hoje > entrega:
+                meta.semaforo = 'vermelho'
+                meta.save()
+            elif dias > (dias_total * 0.1) and dias <= (dias_total * 0.4):
+                meta.semaforo = 'amarelo'
+                meta.save()
+            else:
+                meta.semaforo = 'azul'
+                meta.save()
 
     data = {
         'total_metas': len(lista_metas),
@@ -216,6 +313,7 @@ def alterandoPorcentagem(request, id, porcentagem):
             return render(request, 'metas/novocomentario.html', {'form': form})
     else:
         return render(request, 'metas/novocomentario.html', {'form': form})
+
         
 @login_required
 def listaDeletadas(request):

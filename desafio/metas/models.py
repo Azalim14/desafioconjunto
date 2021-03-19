@@ -38,7 +38,7 @@ class Meta(models.Model):
     updated_at = models.DateTimeField(auto_now=True)
     setor = models.ForeignKey(Setor, on_delete = models.CASCADE)
     responsavel = models.ForeignKey(Membro, on_delete = models.CASCADE)
-    membros = models.CharField(max_length = 250)
+    membros = models.CharField(max_length = 250, blank=True)
     entrega = models.DateField()
     deletado = models.BooleanField()
     porcentagem = models.IntegerField()
