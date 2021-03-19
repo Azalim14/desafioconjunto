@@ -36,27 +36,39 @@
             <input type="number" name="porcentagem" id="input-porcentagem" max="100" min="0" maxlength="3" placeholder="{{ meta.porcentagem }}">
             <input type="submit" value="Alterar">
         </form>
-        <a href="{% url 'delete-meta' meta.id %}" class="delete-btn"><span><i class="fas fa-trash"></i></span></a>
-        <a href="{% url 'edit-meta' meta.id %}"><span><i class="fas fa-edit"></i></span></a>
-        <a href="{% url 'change-status' meta.id %}"><span><i class="fas fa-check"></i></span></a>
+        <div id="icons-div" class="mb-2">
+            <a href="{% url 'change-status' meta.id %}" title="Concluir a meta">    <i class="fa fa-check fa-2x mr-3" style="color:blue"></i>   </a>
+            <a href="{% url 'edit-meta' meta.id %}"     title="Editar a meta">        <i class="fa fa-edit fa-2x mr-3" style="color:green"></i>    </a>
+            <a href="{% url 'delete-meta' meta.id %}"   title="Excluir a meta">      <i class="fa fa-trash fa-2x mt-2 mr-3" style="color:red"></i>         </a>
+        </div>
     </div>
 
     <input type="hidden" name="idmeta" id="id-meta" value="{{ meta.id }}">
 
-    <div class="col-10 coments-list-div">
+    <div class="offset-1">
         <a id="#add-coment-link" href="/comentario/{{ meta.id }}">
-            <div class="col-2 add-div">
+            <div class="col-sm-2 add-div text-center">
                 <i class="fa fa-plus"></i> Adicionar Comentário
             </div>
         </a>
 
+        <a id="#add-coment-link" href="/home/">
+            <div class="col-sm-2 add-div mt-2 text-center">
+                <i class="fa fa-home"></i> Voltar para home
+            </div>
+        </a>
+    </div>
+    
+    <div class="col-sm-10 coments-list-div">
+
         <div class="row">
-            <div class="list-group col-10 coment-list">
-            {% for coment in comentarios %}
+            <div class="list-group col-sm-11 coment-list">
+            <h2>Comentários:</h2>
+                {% for coment in comentarios %}
 
                 <a href="#" class="list-group-item list-group-item-action flex-column align-items-start">
                     <div class="d-flex w-100 justify-content-between">
-                        <h5 class="mb-1">{{ coment.usuario.name }}|{{ coment.fk_meta.titulo }}</h5>
+                        <h5 class="mb-1">{{ coment.usuario.name }} | {{ coment.fk_meta.titulo }}</h5>
                         <small class="text-muted">{{ coment.created_at }}</small>
                     </div>
                     <h6>O que foi feito?</h6>

@@ -8,37 +8,37 @@
 
         <div class="col-12">
             <div class="row dados">
-                <div class="card text-center col-2" style="background-color: #BDB76B;" >
+                <div class="card text-center col-sm-2" style="background-color: #BDB76B;" >
                     <div class="card-body">
                     <h5 class="card-title"><a href="/" class="dados-title">Total de metas</a></h5>
                     <h5 class="card-text">{{ total_metas }}</h5>
                     </div>
                 </div>
-                <div class="card text-center col-2" style="background-color: #90EE90;">
+                <div class="card text-center col-sm-2" style="background-color: #90EE90;">
                     <div class="card-body">
                     <h5 class="card-title"><a href="{% url 'lista-cor' 'verde' %}" class="dados-title">Concluídas</a></h5>
                     <h5 class="card-text">{{ concluidas }}</h5>
                     </div>
                 </div>
-                <div class="card text-center col-2" style="background-color: #ADD8E6;">
+                <div class="card text-center col-sm-2" style="background-color: #ADD8E6;">
                     <div class="card-body">
                     <h5 class="card-title"><a href="{% url 'lista-cor' 'azul' %}" class="dados-title">Em progresso</a></h5>
                     <h5 class="card-text">{{ progresso }}</h5>
                     </div>
                 </div>
-                <div class="card text-center col-2" style="background-color: #DAA520;">
+                <div class="card text-center col-sm-2" style="background-color: #DAA520;">
                     <div class="card-body">
                     <h5 class="card-title"><a href="{% url 'lista-cor' 'amarelo' %}" class="dados-title">Atenção</a></h5>
                     <h5 class="card-text">{{ atencao }}</h5>
                     </div>
                 </div>
-                <div class="card text-center col-2" style="background-color: #FF6347;">
+                <div class="card text-center col-sm-2" style="background-color: #FF6347;">
                     <div class="card-body">
                     <h5 class="card-title"><a href="{% url 'lista-cor' 'vermelho' %}" class="dados-title">Atrasadas</a></h5>
                     <h5 class="card-text">{{ atrasadas }}</h5>
                     </div>
                 </div>
-                <div class="card text-center col-2" style="background-color: #90EE90;">
+                <div class="card text-center col-sm-2" style="background-color: #90EE90;">
                     <div class="card-body">
                     <h5 class="card-title">% de metas concluídas</h5>
                     <h5 class="card-text">{{ porcentagem }}%</h5>

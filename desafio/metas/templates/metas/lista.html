@@ -7,13 +7,13 @@
         <h1>Lista de Metas</h1>
         <a id="#add-link{
             " href="novameta/">
-            <div class="col-2 add-div">
+            <div class="col-sm-2 add-div">
                 <i class="fa fa-plus"></i> Adicionar Meta
             </div>
         </a>
         <div class="col-9 search-div">
             <form method="GET" id="search-form">
-                <input class="form-control" type="text" name="search" id="search" placeholder="Digite aqui uma meta para buscar..." value="{{ request.GET.search }}">
+                <input class="form-control" type="text" name="search" id="search" placeholder="Busque uma meta ..." value="{{ request.GET.search }}">
                 <i class="fas fa-search" id="search-btn"></i>
             </form>
         </div>
