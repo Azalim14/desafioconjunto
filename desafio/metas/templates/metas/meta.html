@@ -6,9 +6,6 @@
 {% block content %}
     <div class="offset-1 col-10 meta-view cor-check">
         <h1 class="h2-comentarios">{{ meta.titulo }}</h1>
-        <a href="{% url 'delete-meta' meta.id %}" class="delete-btn"><span><i class="fas fa-trash"></i></span></a>
-        <a href="{% url 'edit-meta' meta.id %}"><span><i class="fas fa-edit"></i></span></a>
-        <a href="{% url 'change-status' meta.id %}" class="changestatus-btn"><span><i class="fas fa-check"></i></span></a>
         <p>{{ meta.descricao }}</p>
         <h4>Responsável: {{ meta.responsavel }}</h4>
         {% if meta.membros %}
@@ -42,7 +39,7 @@
             <input type="submit" value="Alterar">
         </form>
         <div id="icons-div" class="mb-2">
-            <a href="{% url 'change-status' meta.id %}" title="Concluir a meta">    <i class="fa fa-check fa-2x mr-3" style="color:blue"></i>   </a>
+            <a href="{% url 'change-status' meta.id %}" class="changestatus-btn"title="Concluir a meta">    <i class="fa fa-check fa-2x mr-3" style="color:blue"></i>   </a>
             <a href="{% url 'edit-meta' meta.id %}"     title="Editar a meta">        <i class="fa fa-edit fa-2x mr-3" style="color:green"></i>    </a>
             <a href="{% url 'delete-meta' meta.id %}"  class="delete-btn" title="Excluir a meta">      <i class="fa fa-trash fa-2x mt-2 mr-3" style="color:red"></i>         </a>
         </div>
