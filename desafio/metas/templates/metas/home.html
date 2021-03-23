@@ -64,7 +64,7 @@
                                             <a href="{% url 'meta-view' meta.id %}" class="meta-title">{{ meta.titulo }}</a>
                                             <div class="progress">
                                                 {% if meta.semaforo == 'verde' %}
-                                                    <div class="progress-bar progress-bar-striped bg-success progress-bar-animated progress-bar-min" style="width:{{ meta.porcentagem }}%; min-width: 16%;" role="progressbar" aria-valuenow="{{ meta.porcentagem }}" aria-valuemin="0" aria-valuemax="100">
+                                                    <div class="progress-bar progress-bar-striped bg-success progress-bar-animated" style="width:{{ meta.porcentagem }}%; min-width: 16%;" role="progressbar" aria-valuenow="{{ meta.porcentagem }}" aria-valuemin="0" aria-valuemax="100">
                                                         {{ meta.porcentagem }}%
                                                     </div>
                                                 {% elif meta.semaforo == 'vermelho' %}  
