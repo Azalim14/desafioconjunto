@@ -7,13 +7,13 @@
         <h1>Lista de Metas {{ setor.name }}</h1>
         <a id="#add-link{
             " href="novameta/{{ setor.ident }}">
-            <div class="col-2 add-div">
+            <div class="col-sm-2 add-div">
                 <i class="fa fa-plus"></i> Adicionar Meta
             </div>
         </a>
         <div class="col-9 search-div">
             <form method="GET" id="search-form">
-                <input class="form-control" type="text" name="search" id="search" placeholder="Digite aqui uma meta para buscar..." value="{{ request.GET.search }}">
+                <input class="form-control" type="text" name="search" id="search" placeholder="Busque uma meta" value="{{ request.GET.search }}">
                 <i class="fas fa-search" id="search-btn"></i>
             </form>
         </div>
@@ -49,28 +49,28 @@
                             </div>
                             <div class="progress">
                                 {% if meta.semaforo == 'verde' %}
-                                    <div class="progress-bar progress-bar-striped bg-success progress-bar-animated" style="width: {{ meta.porcentagem }}%;" role="progressbar" aria-valuenow="{{ meta.porcentagem }}" aria-valuemin="0" aria-valuemax="100">
+                                    <div class="progress-bar progress-bar-striped bg-success progress-bar-animated" style="width: {{ meta.porcentagem }}%; min-width: 14%;" role="progressbar" aria-valuenow="{{ meta.porcentagem }}" aria-valuemin="0" aria-valuemax="100">
                                         {{ meta.porcentagem }}%
                                     </div>
                                 {% elif meta.semaforo == 'vermelho' %}  
-                                    <div class="progress-bar progress-bar-striped bg-danger progress-bar-animated" style="width: {{ meta.porcentagem }}%;" role="progressbar" aria-valuenow="{{ meta.porcentagem }}" aria-valuemin="0" aria-valuemax="100">
+                                    <div class="progress-bar progress-bar-striped bg-danger progress-bar-animated" style="width: {{ meta.porcentagem }}%; min-width: 14%;" role="progressbar" aria-valuenow="{{ meta.porcentagem }}" aria-valuemin="0" aria-valuemax="100">
                                         {{ meta.porcentagem }}%
                                     </div>
                                 {% elif meta.semaforo == 'amarelo' %}
-                                    <div class="progress-bar progress-bar-striped bg-warning progress-bar-animated" style="width: {{ meta.porcentagem }}%;" role="progressbar" aria-valuenow="{{ meta.porcentagem }}" aria-valuemin="0" aria-valuemax="100">
+                                    <div class="progress-bar progress-bar-striped bg-warning progress-bar-animated" style="width: {{ meta.porcentagem }}%; min-width: 14%;" role="progressbar" aria-valuenow="{{ meta.porcentagem }}" aria-valuemin="0" aria-valuemax="100">
                                         {{ meta.porcentagem }}%
                                     </div>
                                 {% elif meta.semaforo == 'azul' %}
-                                    <div class="progress-bar progress-bar-striped bg-info progress-bar-animated" style="width: {{ meta.porcentagem }}%;" role="progressbar" aria-valuenow="{{ meta.porcentagem }}" aria-valuemin="0" aria-valuemax="100">
+                                    <div class="progress-bar progress-bar-striped bg-info progress-bar-animated" style="width: {{ meta.porcentagem }}%; min-width: 14%;" role="progressbar" aria-valuenow="{{ meta.porcentagem }}" aria-valuemin="0" aria-valuemax="100">
                                         {{ meta.porcentagem }}%
                                     </div>
                                 {% endif %}
                             </div>
                             <p class="mb-1">{{ meta.descricao }}</p>
                             <small class="text-muted">{{ meta.created_at }}</small>
-                            <a href="delete/{{ meta.id }}" class="delete-btn"><span><i class="fas fa-trash"></i></span></a>
-                            <a href="edit/{{ meta.id }}"><span><i class="fas fa-edit"></i></span></a>
-                            <a href="changestatusS/{{ meta.id }}"><span><i class="fas fa-check"></i></span></a>
+                            <a href="delete/{{ meta.id }}" class="delete-btn"><span><i class="fas fa-trash" rel="tooltip" title="Excluir a meta"></i></span></a>
+                            <a href="edit/{{ meta.id }}"><span><i class="fas fa-edit" rel="tooltip" title="Editar a meta"></i></span></a>
+                            <a href="changestatusS/{{ meta.id }}"><span><i class="fas fa-check" rel="tooltip" title="Concluir a meta"></i></span></a>
                         </div>
                     </a>
                 </div>

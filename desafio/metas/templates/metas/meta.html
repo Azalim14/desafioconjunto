@@ -13,19 +13,19 @@
         <h6>Criada em: {{ meta.created_at }}</h6>
         <div class="progress">
             {% if meta.semaforo == 'verde' %}
-                <div class="progress-bar progress-bar-striped bg-success progress-bar-animated" style="width: {{ meta.porcentagem }}%;" role="progressbar" aria-valuenow="{{ meta.porcentagem }}" aria-valuemin="0" aria-valuemax="100">
+                <div class="progress-bar progress-bar-striped bg-success progress-bar-animated" style="width: {{ meta.porcentagem }}%;min-width: 14%;" role="progressbar" aria-valuenow="{{ meta.porcentagem }}" aria-valuemin="0" aria-valuemax="100">
                     {{ meta.porcentagem }}%
                 </div>
             {% elif meta.semaforo == 'vermelho' %}  
-                <div class="progress-bar progress-bar-striped bg-danger progress-bar-animated" style="width: {{ meta.porcentagem }}%;" role="progressbar" aria-valuenow="{{ meta.porcentagem }}" aria-valuemin="0" aria-valuemax="100">
+                <div class="progress-bar progress-bar-striped bg-danger progress-bar-animated" style="width: {{ meta.porcentagem }}%;min-width: 14%;" role="progressbar" aria-valuenow="{{ meta.porcentagem }}" aria-valuemin="0" aria-valuemax="100">
                     {{ meta.porcentagem }}%
                 </div>
             {% elif meta.semaforo == 'amarelo' %}
-                <div class="progress-bar progress-bar-striped bg-warning progress-bar-animated" style="width: {{ meta.porcentagem }}%;" role="progressbar" aria-valuenow="{{ meta.porcentagem }}" aria-valuemin="0" aria-valuemax="100">
+                <div class="progress-bar progress-bar-striped bg-warning progress-bar-animated" style="width: {{ meta.porcentagem }}%;min-width: 14%;" role="progressbar" aria-valuenow="{{ meta.porcentagem }}" aria-valuemin="0" aria-valuemax="100">
                     {{ meta.porcentagem }}%
                 </div>
             {% elif meta.semaforo == 'azul' %}
-                <div class="progress-bar progress-bar-striped bg-info progress-bar-animated" style="width: {{ meta.porcentagem }}%;" role="progressbar" aria-valuenow="{{ meta.porcentagem }}" aria-valuemin="0" aria-valuemax="100">
+                <div class="progress-bar progress-bar-striped bg-info progress-bar-animated" style="width: {{ meta.porcentagem }}%;min-width: 14%;" role="progressbar" aria-valuenow="{{ meta.porcentagem }}" aria-valuemin="0" aria-valuemax="100">
                     {{ meta.porcentagem }}%
                 </div>
             {% endif %}
@@ -37,9 +37,9 @@
             <input type="submit" value="Alterar">
         </form>
         <div id="icons-div" class="mb-2">
-            <a href="{% url 'change-status' meta.id %}" title="Concluir a meta">    <i class="fa fa-check fa-2x mr-3" style="color:blue"></i>   </a>
-            <a href="{% url 'edit-meta' meta.id %}"     title="Editar a meta">        <i class="fa fa-edit fa-2x mr-3" style="color:green"></i>    </a>
-            <a href="{% url 'delete-meta' meta.id %}"  class="delete-btn" title="Excluir a meta">      <i class="fa fa-trash fa-2x mt-2 mr-3" style="color:red"></i>         </a>
+            <a href="{% url 'change-status' meta.id %}">    <i class="fa fa-check fa-2x mr-3" style="color:blue" rel="tooltip" title="Concluir a meta"></i>   </a>
+            <a href="{% url 'edit-meta' meta.id %}">        <i class="fa fa-edit fa-2x mr-3" style="color:green" rel="tooltip"   title="Editar a meta"></i>    </a>
+            <a href="{% url 'delete-meta' meta.id %}"  class="delete-btn">      <i class="fa fa-trash fa-2x mt-2 mr-3" style="color:red" rel="tooltip" title="Excluir a meta"></i>         </a>
         </div>
     </div>
 
