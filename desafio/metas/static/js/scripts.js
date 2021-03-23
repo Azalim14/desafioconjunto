@@ -7,7 +7,22 @@ $(document).ready(function() {
     var filter = $('#filter');
     var filterS = $('#filterS');
     var urlSetor = $('#url-setor').val();
-    var urlCor = $('#url-cor').val();
+    var changeStatus = $('.changestatus-btn');
+
+    $(changeStatus).on('click', function(e){
+        e.preventDefault();
+
+        var changeLink = $(this).attr('href');
+        var result = confirm('Deseja fazer um comentário?');
+
+        if(result){
+            window.location.href = changeLink;
+        }
+        else{
+            window.location.href = changeLink + '/100';
+        }
+
+    });
 
     $(deleteBtn).on('click', function(e) {
         e.preventDefault();

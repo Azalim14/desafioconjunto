@@ -377,3 +377,20 @@ footer .estagiarios{
 #formulario-porcentagem{
     padding-top: 10px;
 }
+
+.meta-view .h2-comentarios{
+    display: inline-block;
+}
+
+.meta-view .add-coment{
+    padding-left: 25px;
+}
+
+.meta-view .add-coment-link{
+    padding-left: 50px;
+}
+
+.voltar{
+    margin: 5px;
+    float: right;
+}
